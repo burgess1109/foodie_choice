@@ -32,6 +32,9 @@
     * Mbstring PHP Extension
     * Tokenizer PHP Extension
     * XML PHP Extension
+    
+* 其他需求    
+
     * NodeJS 及 npm
     * Composer
 
