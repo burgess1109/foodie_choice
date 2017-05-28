@@ -138,7 +138,7 @@ https://speakerdeck.com/jaceju/effective-unit-testing
 * 解決相依物件而無法隔離測試的方法 :
 http://oomusou.io/tdd/tdd-isolated-test
 
-在 tests/Unit 下有寫了一些 Test Code 涵蓋一些驗收測試及單元測試，當然可以依需求自行擴充嘗試了 PHP Mockery 及 Faker package
+在 tests/Unit 下有寫了一些 Test Code 涵蓋一些驗收測試及單元測試，當然可以依需求自行擴充，Test Code 使用了 PHP Mockery 及 Faker 兩種 php package
 
 * FoodieTest.php : 驗收測試, 進行 GET, POST, PATCH, DELETE 及 Exception 測試
 
