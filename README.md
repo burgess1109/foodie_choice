@@ -180,6 +180,7 @@ http://oomusou.io/laravel/laravel-architecture
 
  ```php
  $restaurantService = new RestaurantService();
+ #切換至mongodb
  $restaurantService->setDBConnect('mongodb');
  #取得 mongodb restaurant 所有資料
  $restaurantService->getData();
