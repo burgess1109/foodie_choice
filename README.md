@@ -35,8 +35,8 @@
     
 * 其他需求    
 
-    * NodeJS 及 npm
-    * Composer
+    * NodeJS 及 npm ( https://nodejs.org/en )
+    * Composer (https://getcomposer.org/download)
 
 下載程式
 
