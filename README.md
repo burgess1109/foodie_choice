@@ -184,6 +184,10 @@ http://oomusou.io/laravel/laravel-architecture
  #取得 mongodb restaurant 所有資料
  $restaurantService->getData();
  ```
+ 
+ 這樣做的好處是未來如果要加入新的DB連線方式，假設是MSSQL，只要在 models 下新增 MSSQL 資料夾跟相關 model 檔案，再去修改 RestaurantFactory 條件即可，其他 Controller,Service,Repository 完全不用修改，舊 Model 也不會影響到。另可將 RestaurantFactory 改用 LUT 表示並移至設定檔中，將可達到工廠模式的開放封閉(http://oomusou.io/tdd/tdd-factory-ocp/)
+ 
+ 
 
 # 前端架構
 
