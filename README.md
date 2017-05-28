@@ -5,7 +5,7 @@
 
 ![圖示說明](https://github.com/burgess1109/foodie_choice/blob/master/demo1.jpg) 
 
-![圖示說明](https://github.com/burgess1109/foodie_choice/blob/master/demo2jpg) 
+![圖示說明](https://github.com/burgess1109/foodie_choice/blob/master/demo2.jpg) 
 
 
 # 下載 & 安裝方式
