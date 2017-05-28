@@ -199,9 +199,9 @@ http://oomusou.io/laravel/laravel-architecture
 Oh ~ ajax requests 是使用 Axios套件
 
 
+# 結語
 
-
-
+查了許多網路上的資料，也有請教一些前輩，大部分教學都只是點到為止，於是想說整合消化一下，弄個小功能來玩玩，才能更熟悉相關的 know how。未來有新的想法將會持續做更正，也期望各位大大們不吝賜教。
 
 
 
