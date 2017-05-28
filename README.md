@@ -1,5 +1,5 @@
 # Hello 吃貨 !
-最近看了一些 Unit Test 及 Design Patterns 的文章，順便想玩看看 MongoDB 和 VueJS，於是就寫了這支援跨資料庫的隨機選擇餐廳的小project ，順便記錄一下學習的心得，希望大大們多多指教囉! 
+最近看了一些 Unit Test 及 Design Patterns 的文章，順便也想玩看看 MongoDB 和 VueJS，於是就寫了這支援跨資料庫的隨機選擇餐廳的小project ，順便記錄一下學習的心得，希望大大們多多指教囉! 
 
 介面
 
