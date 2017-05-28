@@ -159,7 +159,7 @@ vendor/bin/phpunit tests/Unit/FoodieTest.php
 
 接觸了單元測試後，自然就會對OOP有更深一層的體會，尤其是 SOLID 及 IoC/DI 的觀念
 
-PHP 的 mockery 跟 faker 兩個 packages 實在太強大，讓撰寫測試替身時省了不少功夫，非常推薦使用(P.S. Laravel 的 composer.json 預設有載入)
+PHP 的 mockery 跟 faker 兩個 packages 實在太強大，讓撰寫測試替身時省了不少功夫，非常推薦使用， Laravel 的 composer.json 預設就有載入
 
 除了程式架構外，如何進行"有效"的單元測試，測試的對象是誰？替身是誰？測試程式的涵蓋率重要嗎？測試程式的可讀性、可維護性、可靠性...等等問題。我想專案越龐大，這些問題也會越頭大......
 
