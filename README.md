@@ -135,14 +135,9 @@ https://speakerdeck.com/jaceju/effective-unit-testing
 * 解決相依物件而無法隔離測試的方法 :
 http://oomusou.io/tdd/tdd-isolated-test
 
-在 tests/Unit 下有寫了一些 Test Code
+在 tests/Unit 下有寫了一些 Test Code 涵蓋一些驗收測試及單元測試，當然可以依需求自行擴充嘗試了 PHP Mockery 及 Faker package
 
-涵蓋一些驗收測試及單元測試，當然可以依需求自行擴充
-
-嘗試了 PHP Mockery 及 Faker package
-
-* FoodieTest.php : 驗收測試, 進行 GET, POST, PATCH, DELETE 
-及 Exception 測試
+* FoodieTest.php : 驗收測試, 進行 GET, POST, PATCH, DELETE 及 Exception 測試
 
 * Restaurant/FoodieControllerTest.php : 針對 FoodieController 測試
 
@@ -174,7 +169,7 @@ http://oomusou.io/laravel/laravel-architecture
 
 雖然這只是小範例，但是...我就想殺雞用牛刀...
 
-總之，Controller 用 Laravel RESTful Resource Controllers，另在 app 目錄開了 Models、Repositories、Service，Models 下又增加了 Mongo 跟 Mysql，Service 注入 Controller，Model 注入 Repository。(P.S.寫習慣 Active Record 的 ORM 的人可能對 Repository 會感到陌生，可以去接觸看看 Data Mapper ORM ，例如 Doctrine2 : http://docs.doctrine-project.org/en/latest )
+總之，Controller 使用 Laravel RESTful Resource Controllers 設計，另在 app 目錄開了 Models、Repositories、Service，Models 下又增加了 Mongo 跟 Mysql，Service 注入 Controller，Model 注入 Repository。(P.S.寫習慣 Active Record 的 ORM 的人可能對 Repository 會感到陌生，可以去接觸看看 Data Mapper ORM ，例如 Doctrine2 : http://docs.doctrine-project.org/en/latest )
 
 因為有 Mongo 跟 Mysql，Mysql 繼承原本 Laravel Eloquent 的 Model，Mongo 則要繼承 Jenssegers Mongodb 的 Model ，詳 : 
 
