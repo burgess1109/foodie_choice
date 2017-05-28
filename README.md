@@ -3,9 +3,9 @@
 
 介面
 
-![alt text](/images/demo1.jpg)
+![圖示說明](https://github.com/burgess1109/block_game/blob/master/demo1.jpg) 
 
-![alt text](/images/demo2.jpg)
+![圖示說明](https://github.com/burgess1109/block_game/blob/master/demo12jpg) 
 
 
 # 下載 & 安裝方式
