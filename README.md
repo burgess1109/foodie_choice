@@ -49,7 +49,7 @@ git clone https://github.com/burgess1109/foodie_choice.git
 ```php
 composer install
 
-npm run dev
+npm install
 ```
 
 設定 .env 檔 ：
