@@ -118,7 +118,7 @@ npm run dev
 
 # 單元測試(PHPUnit)
 
-相關知識可以參考下列網址
+相關 know how 可以參考下列網址
 
 * Laravel Testing : 
 https://laravel.com/docs/5.4/testing
