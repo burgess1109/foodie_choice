@@ -58,7 +58,7 @@ npm run dev
 cp .env.example .env
 
 ```
-* note : 若有 Mysql 與 MongoDB 切換需求，請將 .env 中 DB 相關環境參數請註解掉，
+* note : 若有 Mysql 與 MongoDB 切換需求，請將 .env 中 DB 相關環境參數註解掉，
 改由 database.php 統一設定
 
     ```php
