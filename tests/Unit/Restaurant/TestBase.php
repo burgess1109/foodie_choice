@@ -4,12 +4,8 @@ namespace Tests\Unit\Restaurant;
 
 use Tests\TestCase;
 use DB;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Config;
-use App\Repositories\Restaurant\RestaurantRepository;
-use App\Models\Mongo\Restaurant\Restaurant as Mongo_Restaurant;
-use App\Models\Mysql\Restaurant\Restaurant as Mysql_Restaurant;
+use App\Services\RestaurantFactory;
 
 abstract class TestBase extends TestCase
 {
@@ -30,30 +26,19 @@ abstract class TestBase extends TestCase
         parent::setUp();
         $this->db_connect = Config::get('database.default');
 
-        switch($this->db_connect)
-        {
-            case 'mongodb':
-                $this->restaurantRepository=new RestaurantRepository(new Mongo_Restaurant());
-                break;
-            default:
-                $this->restaurantRepository=new RestaurantRepository(new Mysql_Restaurant());
-                DB::beginTransaction();
-                break;
-        }
+        $this->restaurantRepository=RestaurantFactory::Create($this->db_connect);
+
+        if($this->db_connect != 'mongodb')  DB::beginTransaction();
     }
 
+    /**
+     * Get fake date
+     *
+     * @param int $number
+     */
     protected function getFakeData($number=1){
-        switch($this->db_connect )
-        {
-            case 'mongodb':
-                $this->restaurant = new Mongo_Restaurant();
-                $this->factory = factory(Mongo_Restaurant::class,$number);
-                break;
-            default:
-                $this->restaurant = new Mysql_Restaurant();
-                $this->factory = factory(Mysql_Restaurant::class,$number);
-                break;
-        }
+        $this->restaurant = RestaurantFactory::CreateModel($this->db_connect);
+        $this->factory = factory(RestaurantFactory::GetModelPath($this->db_connect),$number);
 
         $key_name = $this->restaurant->getKeyName();
         $max_sequence = $this->restaurant->max($key_name);

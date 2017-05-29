@@ -17,7 +17,7 @@ class FoodieControllerTest extends TestCase
     /**
      * Test Method  index
      *
-     * 執行 index 時, Service 端至少會執行一次 method getData
+     * 執行 index 時, 預期 Service 端至少會執行一次 method getData
      */
     public function testIndex()
     {

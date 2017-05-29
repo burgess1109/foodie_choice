@@ -8,6 +8,7 @@ use Config;
 class FoodieTest extends TestCase
 {
     protected $key_name = 'id';
+
     protected function setUp()
     {
         parent::setUp();
@@ -17,7 +18,7 @@ class FoodieTest extends TestCase
     }
 
     /**
-     * Test function Index of RouletteController.
+     * Test function Index of FoodieController.
      *
      */
     public function testIndex()
@@ -28,7 +29,7 @@ class FoodieTest extends TestCase
     }
 
     /**
-     * Test function Show of RouletteController.
+     * Test function Show of FoodieController.
      *
      */
     public function testShow()
@@ -42,7 +43,7 @@ class FoodieTest extends TestCase
     }
 
     /**
-     *  Test function Store of RouletteController with Exception
+     *  Test function Store of FoodieController with Exception
      *
      */
     public function testStoreWithException()
@@ -52,7 +53,7 @@ class FoodieTest extends TestCase
     }
 
     /**
-     * Test function Store of RouletteController.
+     * Test function Store of FoodieController.
      *
      */
     public function testStore()
@@ -62,7 +63,7 @@ class FoodieTest extends TestCase
     }
 
     /**
-     *  Test function Update of RouletteController with Exception
+     *  Test function Update of FoodieController with Exception
      *
      */
     public function testUpdateWithException()
@@ -74,7 +75,7 @@ class FoodieTest extends TestCase
     }
 
     /**
-     * Test function Update of RouletteController.
+     * Test function Update of FoodieController.
      *
      */
     public function testUpdate()
@@ -87,7 +88,7 @@ class FoodieTest extends TestCase
     }
 
     /**
-     * Test function Delete of RouletteController.
+     * Test function Delete of FoodieController.
      *
      */
     public function testDelete()
