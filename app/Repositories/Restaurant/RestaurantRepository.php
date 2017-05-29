@@ -16,12 +16,25 @@ class RestaurantRepository extends Repository
         $this->key_name = $restaurant->getKeyName();
     }
 
+    /**
+     *  Update data by id
+     *
+     * @param $updateData
+     * @param $id
+     * @return mixed
+     */
     public function updateData($updateData,$id){
         $updateData = $this->setAddress($updateData);
 
         return $this->repository->where($this->key_name,$id)->update($updateData);
     }
 
+    /**
+     *  Insert a new data
+     *
+     * @param $createData
+     * @return mixed
+     */
     public function createData($createData)
     {
         $createData = $this->setAddress($createData);
@@ -31,6 +44,12 @@ class RestaurantRepository extends Repository
         return $this->repository->insert($createData);
     }
 
+    /**
+     * Assemble address
+     *
+     * @param $data
+     * @return mixed
+     */
     protected function setAddress($data){
         if(!empty($data['city']) || !empty($data['detail'])){
             $data['address'][0]['city']=empty($data['city'])?'':$data['city'];

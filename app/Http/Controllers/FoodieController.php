@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class FoodieController extends BaseController
 {
-    /** @var RouletteService */
+    /** @var object RouletteService */
     protected $restaurantService;
 
     /**
@@ -29,7 +29,8 @@ class FoodieController extends BaseController
      */
     public function index()
     {
-        //$this->restaurantService->setDBConnect('mysql');
+        //If you want to switch database, you can use "setDBConnect"
+        //$this->restaurantService->setDBConnect('mongodb');
         return json_encode($this->restaurantService->getData());
     }
 

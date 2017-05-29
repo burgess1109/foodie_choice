@@ -4,9 +4,10 @@ namespace App\Services;
 
 class RestaurantService extends Service
 {
-    /** @var restaurant repository */
+    /** @var object restaurant repository */
     protected $restaurantRepository;
 
+    /** @var array The columns which can be  accepted for update and insert */
     protected $acceptedParameters = ['name','city','detail', 'status', 'tel','opentime'];
 
     public function __construct()
@@ -18,6 +19,10 @@ class RestaurantService extends Service
         return $this->restaurantRepository;
     }
 
+    /**
+     * Get restaurantRepository
+     *
+     */
     protected function switchRepository()
     {
         RestaurantFactory::Create($this->db_connect);
@@ -26,16 +31,35 @@ class RestaurantService extends Service
         $this->restaurantRepository = $this->getRepository();
     }
 
+    /**
+     * Get single date by id
+     *
+     * @param $id
+     * @return mixed
+     */
     public function getDataById($id)
     {
         return $this->restaurantRepository->getDataById($id);
     }
 
+    /**
+     * Get all data
+     *
+     * @return mixed
+     */
     public function getData()
     {
         return $this->restaurantRepository->getData();
     }
 
+    /**
+     * update data by id
+     *
+     * @param $request
+     * @param $id
+     * @return mixed
+     * @throws \Exception
+     */
     public function updateData($request,$id)
     {
         $updateData=$request->only($this->acceptedParameters); //array
@@ -45,6 +69,13 @@ class RestaurantService extends Service
         return $this->restaurantRepository->updateData($updateData,$id);
     }
 
+    /**
+     * Insert a new data
+     *
+     * @param $request
+     * @return mixed
+     * @throws \Exception
+     */
     public function createData($request)
     {
         $createData=$request->only($this->acceptedParameters); //array
@@ -55,11 +86,22 @@ class RestaurantService extends Service
         return $this->restaurantRepository->createData($createData);
     }
 
+    /**
+     * Remove data by id
+     *
+     * @param $id
+     * @return mixed
+     */
     public function deleteData($id)
     {
         return $this->restaurantRepository->deleteData($id);
     }
 
+    /**
+     * Get $acceptedParameters
+     *
+     * @return $this->acceptedParameters
+     */
     public function getAcceptedParameters()
     {
         return $this->acceptedParameters;
