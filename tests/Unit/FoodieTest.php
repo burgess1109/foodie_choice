@@ -4,17 +4,22 @@ namespace Tests\Unit;
 
 use Tests\TestCase;
 use Config;
+use App\Services\RestaurantFactory;
 
 class FoodieTest extends TestCase
 {
     protected $key_name = 'id';
 
+    protected $restaurantRepository;
+
     protected function setUp()
     {
         parent::setUp();
         $db_connect= Config::get('database.default');
-        if($db_connect == 'mongodb') $this->key_name = '_id';
 
+        $this->restaurantRepository=RestaurantFactory::Create($db_connect);
+
+        $this->key_name = $this->restaurantRepository->getKeyName();
     }
 
     /**
@@ -68,7 +73,8 @@ class FoodieTest extends TestCase
      */
     public function testUpdateWithException()
     {
-        $response = $this->json('PATCH', '/foodie/6', [
+        $max_sequence = $this->restaurantRepository->getMaxSequence();
+        $response = $this->json('PATCH', '/foodie/'.$max_sequence, [
             'name' => '',
             'tel' => '02-'.rand(20000000,29999999)]);
         $this->assertEquals('There is no name',$response->exception->getMessage());
@@ -80,7 +86,8 @@ class FoodieTest extends TestCase
      */
     public function testUpdate()
     {
-        $response = $this->json('PATCH', '/foodie/6', [
+        $max_sequence = $this->restaurantRepository->getMaxSequence();
+        $response = $this->json('PATCH', '/foodie/'.$max_sequence, [
             'name' => 'TEST0002',
             'tel' => '02-'.rand(20000000,29999999)]);
 
@@ -93,7 +100,8 @@ class FoodieTest extends TestCase
      */
     public function testDelete()
     {
-        $response = $this->call('DELETE', '/foodie/6');
+        $max_sequence = $this->restaurantRepository->getMaxSequence();
+        $response = $this->call('DELETE', '/foodie/'.$max_sequence);
 
         $this->assertEquals(1,$response->original);
     }

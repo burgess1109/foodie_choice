@@ -97,4 +97,13 @@ abstract class Repository implements RepositoryInterface
         $max_sequence = $this->repository->max($this->key_name);
         return (int)$max_sequence;
     }
+
+    /**
+     * Get Key Name
+     *
+     * @return string $key_name
+     */
+    public function getKeyName(){
+        return $this->key_name;
+    }
 }
