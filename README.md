@@ -176,7 +176,7 @@ http://oomusou.io/laravel/laravel-architecture
 
 因為有 Mongo 跟 Mysql，Mysql 繼承原本 Laravel Eloquent 的 Model，Mongo 則要繼承 Jenssegers Mongodb 的 Model，Jenssegers Mongodb使用方法詳 https://github.com/jenssegers/laravel-mongodb
 
-於是搜尋了一下腦海中所學不多的 Design Patterns ，似乎 Simple Factory Pattern 比較符合需求，RestaurantFactory 依據 DB_CONNECT 預設值，return RestaurantService 需引用的 Repository。另外，如果要轉換 DB，可使用 Service 的 method setDBConnect
+針對DB切換的狀況，搜尋了一下腦海中所學不多的 Design Patterns ，似乎 Simple Factory Pattern 比較符合需求，RestaurantFactory 依據 DB_CONNECT 預設值，return RestaurantService 需引用的 Repository。另外，如果要轉換 DB，可使用 Service 的 method setDBConnect
 
  ```php
  $restaurantService = new RestaurantService();
@@ -188,7 +188,9 @@ http://oomusou.io/laravel/laravel-architecture
  $restaurantService->getData();
  ```
  
- 這樣做的好處是未來如果要加入新的DB連線方式，假設是MSSQL，只要在 models 下新增 MSSQL 資料夾跟相關 model 檔案，再去修改 RestaurantFactory 條件即可，其他 Controller,Service,Repository 完全不用修改，舊 Model 也不會影響到。另可將 RestaurantFactory 改用 LUT 表示並移至設定檔中，將可達到工廠模式的開放封閉(http://oomusou.io/tdd/tdd-factory-ocp/)
+ 這樣做的好處是未來如果要加入新的DB連線方式，假設是MSSQL，只要在 models 下新增 MSSQL 資料夾跟相關 model 檔案，再去修改 RestaurantFactory 條件即可，其他 Controller,Service,Repository 完全不用修改，原有 Model 也不會影響到，降低了程式的相依性。
+ 
+ 另可將 RestaurantFactory 改用 LUT 表示並移至設定檔中，將可達到工廠模式的開放封閉(http://oomusou.io/tdd/tdd-factory-ocp/)
  
  
 
