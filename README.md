@@ -58,8 +58,7 @@ npm install
 cp .env.example .env
 
 ```
-* note : 若有 Mysql 與 MongoDB 切換需求，請將 .env 中 DB 相關環境參數註解掉，
-改由 database.php 統一設定
+* note : 若有 Mysql 與 MongoDB 切換需求，請將 .env 中 DB 相關環境參數註解掉，改由 database.php 統一設定
 
     ```php
     #DB_CONNECTION=mysql
@@ -99,6 +98,12 @@ cp .env.example .env
           ],       
  
  ```
+* note : 若修改default的DB_CONNECTION設定，請記得清掉 Laravel config cache，否則仍撈取舊的設定
+
+    ```php
+    php artisan config:clear
+    ```
+
 
 創建 Table Restaurant 及 初始資料
 
