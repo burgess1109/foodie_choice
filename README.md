@@ -177,7 +177,7 @@ http://oomusou.io/laravel/laravel-architecture
 
 雖然這只是小範例，但是...我就想殺雞用牛刀...
 
-總之，Controller 使用 Laravel RESTful Resource Controllers 設計，另在 app 目錄開了 Models、Repositories、Service，Models 下又增加了 Mongo 跟 Mysql，Service 注入 Controller，Model 注入 Repository。( P.S.寫習慣 Active Record 的 ORM 的人往往對 Model 直接實例化並進行操作，可能對 Repository 會感到陌生，可以去接觸看看 Data Mapper ORM ，例如 Doctrine2 : http://docs.doctrine-project.org/en/latest ，也許更能體會 Repository )
+總之，Controller 使用 Laravel RESTful Resource Controllers 設計，另在 app 目錄開了 Models、Repositories、Service，Models 下又增加了 Mongo 跟 Mysql，Service 注入 Controller，Model 注入 Repository。( P.S.寫習慣 Active Record ORM 的人往往對 Model 直接實例化並進行操作，可能對 Repository 會感到陌生，可以去接觸看看 Data Mapper ORM ，例如 Doctrine2 : http://docs.doctrine-project.org/en/latest ，也許更能體會 Repository )
 
 因為有 Mongo 跟 Mysql，Mysql 繼承原本 Laravel Eloquent 的 Model，Mongo 則要繼承 Jenssegers Mongodb 的 Model，Jenssegers Mongodb使用方法詳 https://github.com/jenssegers/laravel-mongodb
 
