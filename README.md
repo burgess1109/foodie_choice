@@ -98,7 +98,7 @@ cp .env.example .env
           ],       
  
  ```
-* note : 若修改default的DB_CONNECTION設定，請記得清掉 Laravel config cache，否則仍撈取舊的設定
+* note : 若修改config內容，請記得清掉 Laravel config cache，否則仍撈取舊的設定
 
     ```php
     php artisan config:clear
