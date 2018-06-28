@@ -14,6 +14,7 @@ install:
   - composer install
   - npm install
   - cp .env.travis .env
+  - mysql -e 'create database project_2018;'
   - php artisan migrate:refresh
   - php artisan db:seed --class=RestaurantTableSeeder
 script:
