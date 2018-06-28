@@ -23,10 +23,32 @@ class RestaurantRepository extends Repository
      * @param $id
      * @return mixed
      */
-    public function updateData($updateData,$id){
+    public function updateData($updateData, $id)
+    {
         $updateData = $this->setAddress($updateData);
 
-        return $this->repository->where($this->key_name,$id)->update($updateData);
+        return $this->repository->where($this->key_name, $id)->update($updateData);
+    }
+
+    /**
+     * Assemble address
+     *
+     * @param $data
+     * @return mixed
+     */
+    protected function setAddress($data)
+    {
+        if (!empty($data['city']) || !empty($data['detail'])) {
+            $data['address'][0]['city'] = empty($data['city']) ? '' : $data['city'];
+            $data['address'][0]['detail'] = empty($data['detail']) ? '' : $data['detail'];
+
+            $data['address'] = json_encode($data['address']);
+        }
+
+        unset($data['city']);
+        unset($data['detail']);
+
+        return $data;
     }
 
     /**
@@ -40,27 +62,7 @@ class RestaurantRepository extends Repository
         $createData = $this->setAddress($createData);
 
         $id = $this->getNextSequence();
-        $createData[$this->key_name]=$id;
+        $createData[$this->key_name] = $id;
         return $this->repository->insert($createData);
-    }
-
-    /**
-     * Assemble address
-     *
-     * @param $data
-     * @return mixed
-     */
-    protected function setAddress($data){
-        if(!empty($data['city']) || !empty($data['detail'])){
-            $data['address'][0]['city']=empty($data['city'])?'':$data['city'];
-            $data['address'][0]['detail']=empty($data['detail'])?'':$data['detail'];
-
-            $data['address'] = json_encode($data['address']);
-        }
-
-        unset($data['city']);
-        unset($data['detail']);
-
-        return $data;
     }
 }

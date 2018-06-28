@@ -8,7 +8,7 @@ interface RepositoryInterface
 
     public function getData();
 
-    public function updateData($updateData,$id);
+    public function updateData($updateData, $id);
 
     public function createData($createData);
 

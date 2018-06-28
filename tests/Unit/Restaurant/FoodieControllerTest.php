@@ -30,5 +30,4 @@ class FoodieControllerTest extends TestCase
 
         $RouletteController->index();
     }
-
 }

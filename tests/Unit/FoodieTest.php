@@ -15,9 +15,9 @@ class FoodieTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        $db_connect= Config::get('database.default');
+        $db_connect = Config::get('database.default');
 
-        $this->restaurantRepository=RestaurantFactory::Create($db_connect);
+        $this->restaurantRepository = RestaurantFactory::create($db_connect);
 
         $this->key_name = $this->restaurantRepository->getKeyName();
     }
@@ -53,8 +53,8 @@ class FoodieTest extends TestCase
      */
     public function testStoreWithException()
     {
-        $response =$this->json('POST', '/foodie', ['name' => '']);
-        $this->assertEquals('There is no name',$response->exception->getMessage());
+        $response = $this->json('POST', '/foodie', ['name' => '']);
+        $this->assertEquals('There is no name', $response->exception->getMessage());
     }
 
     /**
@@ -63,8 +63,8 @@ class FoodieTest extends TestCase
      */
     public function testStore()
     {
-        $response =$this->json('POST', '/foodie', ['name' => 'TEST123']);
-        $this->assertEquals('true',$response->original);
+        $response = $this->json('POST', '/foodie', ['name' => 'TEST123']);
+        $this->assertEquals('true', $response->original);
     }
 
     /**
@@ -74,10 +74,11 @@ class FoodieTest extends TestCase
     public function testUpdateWithException()
     {
         $max_sequence = $this->restaurantRepository->getMaxSequence();
-        $response = $this->json('PATCH', '/foodie/'.$max_sequence, [
+        $response = $this->json('PATCH', '/foodie/' . $max_sequence, [
             'name' => '',
-            'tel' => '02-'.rand(20000000,29999999)]);
-        $this->assertEquals('There is no name',$response->exception->getMessage());
+            'tel' => '02-' . rand(20000000, 29999999)
+        ]);
+        $this->assertEquals('There is no name', $response->exception->getMessage());
     }
 
     /**
@@ -87,11 +88,12 @@ class FoodieTest extends TestCase
     public function testUpdate()
     {
         $max_sequence = $this->restaurantRepository->getMaxSequence();
-        $response = $this->json('PATCH', '/foodie/'.$max_sequence, [
+        $response = $this->json('PATCH', '/foodie/' . $max_sequence, [
             'name' => 'TEST0002',
-            'tel' => '02-'.rand(20000000,29999999)]);
+            'tel' => '02-' . rand(20000000, 29999999)
+        ]);
 
-        $this->assertEquals(1,$response->original);
+        $this->assertEquals(1, $response->original);
     }
 
     /**
@@ -101,8 +103,8 @@ class FoodieTest extends TestCase
     public function testDelete()
     {
         $max_sequence = $this->restaurantRepository->getMaxSequence();
-        $response = $this->call('DELETE', '/foodie/'.$max_sequence);
+        $response = $this->call('DELETE', '/foodie/' . $max_sequence);
 
-        $this->assertEquals(1,$response->original);
+        $this->assertEquals(1, $response->original);
     }
 }

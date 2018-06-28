@@ -9,11 +9,9 @@ use App\Models\RestaurantInterface;
 
 class Restaurant extends Model implements RestaurantInterface
 {
+    public $timestamps = false;
     /** @var string DB_CONNECTION */
     protected $connection = 'mongodb';
-
     /** @var string table name。 */
     protected $collection = 'restaurant';
-
-    public $timestamps = false;
 }

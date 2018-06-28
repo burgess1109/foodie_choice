@@ -8,7 +8,7 @@ class RestaurantService extends Service
     protected $restaurantRepository;
 
     /** @var array The columns which can be  accepted for update and insert */
-    protected $acceptedParameters = ['name','city','detail', 'status', 'tel','opentime'];
+    protected $acceptedParameters = ['name', 'city', 'detail', 'status', 'tel', 'opentime'];
 
     public function __construct()
     {
@@ -25,8 +25,8 @@ class RestaurantService extends Service
      */
     protected function switchRepository()
     {
-        RestaurantFactory::Create($this->db_connect);
-        $this->setRepository(RestaurantFactory::Create($this->db_connect));
+        RestaurantFactory::create($this->db_connect);
+        $this->setRepository(RestaurantFactory::create($this->db_connect));
 
         $this->restaurantRepository = $this->getRepository();
     }
@@ -60,13 +60,14 @@ class RestaurantService extends Service
      * @return mixed
      * @throws \Exception
      */
-    public function updateData($request,$id)
+    public function updateData($request, $id)
     {
-        $updateData=$request->only($this->acceptedParameters); //array
-        if(empty($updateData['name']))
+        $updateData = $request->only($this->acceptedParameters); //array
+        if (empty($updateData['name'])) {
             throw new \Exception('There is no name');
+        }
 
-        return $this->restaurantRepository->updateData($updateData,$id);
+        return $this->restaurantRepository->updateData($updateData, $id);
     }
 
     /**
@@ -78,9 +79,10 @@ class RestaurantService extends Service
      */
     public function createData($request)
     {
-        $createData=$request->only($this->acceptedParameters); //array
-        if(empty($createData['name']))
+        $createData = $request->only($this->acceptedParameters); //array
+        if (empty($createData['name'])) {
             throw new \Exception('There is no name');
+        }
 
 
         return $this->restaurantRepository->createData($createData);
@@ -106,5 +108,4 @@ class RestaurantService extends Service
     {
         return $this->acceptedParameters;
     }
-
 }

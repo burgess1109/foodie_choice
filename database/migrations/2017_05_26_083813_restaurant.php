@@ -13,9 +13,8 @@ class Restaurant extends Migration
      */
     public function up()
     {
-        $db_connect= Config::get('database.default');
-        switch($db_connect)
-        {
+        $db_connect = Config::get('database.default');
+        switch ($db_connect) {
             case 'mongodb':
                 if (!Schema::hasCollection('restaurant')) {
                     Schema::create('restaurant', function ($collection) {
@@ -30,14 +29,13 @@ class Restaurant extends Migration
                         $table->increments('id')->unique();
                         $table->string('name')->index();
                         $table->string('address')->nullable();
-                        $table->string('tel',12)->nullable();
+                        $table->string('tel', 12)->nullable();
                         $table->string('opentime')->nullable();
-                        $table->string('status',10)->nullable()->default('enabled');
+                        $table->string('status', 10)->nullable()->default('enabled');
                     });
                 }
                 break;
         }
-
 
 
     }

@@ -2,8 +2,6 @@
 
 namespace App\Repositories;
 
-use App\Repositories\RepositoryInterface;
-
 abstract class Repository implements RepositoryInterface
 {
     /** @var object repository */
@@ -24,7 +22,7 @@ abstract class Repository implements RepositoryInterface
      */
     public function getDataById($id)
     {
-        $row = $this->repository->where($this->key_name,$id)->first();
+        $row = $this->repository->where($this->key_name, $id)->first();
 
         return $row;
     }
@@ -48,9 +46,9 @@ abstract class Repository implements RepositoryInterface
      * @param $id
      * @return mixed
      */
-    public function updateData($updateData,$id)
+    public function updateData($updateData, $id)
     {
-        return $this->repository->where($this->key_name,$id)->update($updateData);
+        return $this->repository->where($this->key_name, $id)->update($updateData);
     }
 
     /**
@@ -72,7 +70,17 @@ abstract class Repository implements RepositoryInterface
      */
     public function deleteData($id)
     {
-        return $this->repository->where($this->key_name,$id)->delete();
+        return $this->repository->where($this->key_name, $id)->delete();
+    }
+
+    /**
+     * Get Key Name
+     *
+     * @return string $key_name
+     */
+    public function getKeyName()
+    {
+        return $this->key_name;
     }
 
     /**
@@ -83,7 +91,7 @@ abstract class Repository implements RepositoryInterface
     protected function getNextSequence()
     {
         $max_sequence = $this->getMaxSequence();
-        $next_sequence = $max_sequence?$max_sequence+1:1;
+        $next_sequence = $max_sequence ? $max_sequence + 1 : 1;
         return (int)$next_sequence;
     }
 
@@ -96,14 +104,5 @@ abstract class Repository implements RepositoryInterface
     {
         $max_sequence = $this->repository->max($this->key_name);
         return (int)$max_sequence;
-    }
-
-    /**
-     * Get Key Name
-     *
-     * @return string $key_name
-     */
-    public function getKeyName(){
-        return $this->key_name;
     }
 }

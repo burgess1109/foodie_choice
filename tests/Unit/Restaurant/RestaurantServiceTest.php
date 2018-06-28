@@ -4,12 +4,12 @@ namespace Tests\Unit;
 
 use Tests\TestCase;
 use App\Services\RestaurantService;
+
 class RestaurantServiceTest extends TestCase
 {
     protected $service;
 
     protected $repository;
-
 
     protected function setUp()
     {
@@ -37,6 +37,6 @@ class RestaurantServiceTest extends TestCase
         $db_connect = 'mysql';
         $this->service->setDBConnect($db_connect);
 
-        $this->assertEquals($db_connect,$this->service->db_connect);
+        $this->assertEquals($db_connect, $this->service->db_connect);
     }
 }

@@ -8,12 +8,9 @@ use App\Models\RestaurantInterface;
 
 class Restaurant extends Model implements RestaurantInterface
 {
+    public $timestamps = false;
     /** @var string DB_CONNECTION */
     protected $connection = 'mysql';
-
     /** @var string table name。 */
     protected $table = 'restaurant';
-
-    public $timestamps = false;
-
 }

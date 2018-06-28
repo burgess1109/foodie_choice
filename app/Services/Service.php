@@ -7,16 +7,26 @@ use App\Repositories\RepositoryInterface;
 
 abstract class Service
 {
+    /** @var  string ENV DB_CONNECT */
+    public $db_connect;
     /** @var  object repository */
     protected $repository;
 
-    /** @var  string ENV DB_CONNECT */
-    public $db_connect;
-
     public function __construct()
     {
-        if(empty($this->db_connect))
-            $this->db_connect= Config::get('database.default');
+        if (empty($this->db_connect)) {
+            $this->db_connect = Config::get('database.default');
+        }
+    }
+
+    /**
+     * Get repository
+     *
+     * @return object
+     */
+    public function getRepository()
+    {
+        return $this->repository;
     }
 
     /**
@@ -30,12 +40,13 @@ abstract class Service
     }
 
     /**
-     * Get repository
+     * Get db_connect
      *
-     * @return object
+     * @return string
      */
-    public function getRepository(){
-        return $this->repository;
+    public function getDBConnect()
+    {
+        return $this->db_connect;
     }
 
     /**
@@ -43,19 +54,11 @@ abstract class Service
      *
      * @param $connect
      */
-    public function setDBConnect($connect){
+    public function setDBConnect($connect)
+    {
         $this->db_connect = $connect;
-        if(method_exists($this,'switchRepository')){
+        if (method_exists($this, 'switchRepository')) {
             $this->switchRepository();
         }
-    }
-
-    /**
-     * Get db_connect
-     *
-     * @return string
-     */
-    public function getDBConnect(){
-        return $this->db_connect;
     }
 }

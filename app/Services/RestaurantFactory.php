@@ -14,10 +14,9 @@ class RestaurantFactory
      * @param string $db_connect
      * @return RestaurantRepository
      */
-    public static function Create($db_connect="")
+    public static function create($db_connect = "")
     {
-        switch($db_connect)
-        {
+        switch ($db_connect) {
             case 'mongodb':
                 return new RestaurantRepository(new Mongo_Restaurant());
                 break;
@@ -33,10 +32,9 @@ class RestaurantFactory
      * @param string $db_connect
      * @return object model
      */
-    public static function CreateModel($db_connect="")
+    public static function createModel($db_connect = "")
     {
-        switch($db_connect)
-        {
+        switch ($db_connect) {
             case 'mongodb':
                 return new Mongo_Restaurant();
                 break;
@@ -52,10 +50,9 @@ class RestaurantFactory
      * @param string $db_connect
      * @return string model path
      */
-    public static function GetModelPath($db_connect="")
+    public static function getModelPath($db_connect = "")
     {
-        switch($db_connect)
-        {
+        switch ($db_connect) {
             case 'mongodb':
                 return Mongo_Restaurant::class;
                 break;
