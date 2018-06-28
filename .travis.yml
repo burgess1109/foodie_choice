@@ -13,7 +13,8 @@ before_install:
 install:
   - composer install
   - npm install
-  - cp .env.travis .env
+  - cp .env.example .env
+  - php artisan key:generate
   - mysql -e 'create database project_2018;'
   - php artisan migrate:refresh
   - php artisan db:seed --class=RestaurantTableSeeder
