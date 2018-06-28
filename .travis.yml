@@ -1,0 +1,18 @@
+os: linux
+dist: trusty
+sudo: false
+language: php
+php:
+  - 7.1
+services:
+  - mysql
+  - mongodb
+before_install:
+  - echo "extension = mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+install:
+  - composer install
+  - npm install
+script:
+  - php vendor/bin/phpcs
+  - php vendor/bin/phpunit
+
