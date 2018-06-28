@@ -1,7 +1,10 @@
 # Hello 吃貨  !
+
+[![Build Status](https://travis-ci.org/burgess1109/foodie_choice.svg?branch=master)](https://travis-ci.org/burgess1109/foodie_choice)
+
 最近看了一些 Unit Test 及 Design Patterns 的文章，順便也想玩看看 MongoDB 和 VueJS，於是就寫了這支援跨資料庫(Mysql,MongoDB)，隨機選擇餐廳的小project ，順便記錄一下學習的心得，希望大大們多多指教囉 ! 
 
-介面
+介面 
 
 ![圖示說明](https://github.com/burgess1109/foodie_choice/blob/master/demo1.jpg) 
 
@@ -12,7 +15,7 @@
 
 注意事項
 
-* 若要使用mongodb，請先確認有無安裝 php_mongodb extension
+* 請先確認有無安裝 php_mongodb extension
 
     Linux 可使用 pecl 安裝
 
@@ -22,11 +25,11 @@
 
     https://pecl.php.net/package/mongodb
 
-* Laravel 5.4 需求
+* Laravel 5.5 需求
 
-    https://laravel.com/docs/5.4
+    https://laravel.com/docs/5.5
     
-    * PHP >= 5.6.4
+    * PHP >= 7.0.0
     * OpenSSL PHP Extension
     * PDO PHP Extension
     * Mbstring PHP Extension
@@ -104,6 +107,10 @@ cp .env.example .env
     php artisan config:clear
     ```
 
+產生 APP KEY
+ ```php
+php artisan key:generate
+ ```
 
 創建 Table Restaurant 及 初始資料
 
