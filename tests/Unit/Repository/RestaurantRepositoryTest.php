@@ -1,10 +1,8 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Repository;
 
-use Tests\Unit\Restaurant\TestBase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tests\Unit\Repository\TestBase;
 
 class RestaurantRepositoryTest extends TestBase
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Service;
 
-use Tests\TestCase;
 use App\Services\RestaurantService;
+use Tests\TestCase;
 
 class RestaurantServiceTest extends TestCase
 {

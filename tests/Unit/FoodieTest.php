@@ -2,9 +2,9 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use Config;
 use App\Services\RestaurantFactory;
+use Config;
+use Tests\TestCase;
 
 class FoodieTest extends TestCase
 {

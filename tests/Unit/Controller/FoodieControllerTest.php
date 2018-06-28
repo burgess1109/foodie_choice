@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Controller;
 
-use \Mockery;
-use Tests\TestCase;
+use Mockery;
 use App\Services\RestaurantService;
 use App\Http\Controllers\FoodieController;
+use Tests\TestCase;
 
 class FoodieControllerTest extends TestCase
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Unit\Restaurant;
+namespace Tests\Unit\Repository;
 
-use Tests\TestCase;
-use DB;
-use Config;
 use App\Services\RestaurantFactory;
+use Config;
+use DB;
+use Tests\TestCase;
 
 abstract class TestBase extends TestCase
 {
