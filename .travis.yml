@@ -13,6 +13,9 @@ before_install:
 install:
   - composer install
   - npm install
+  - cp .env.travis .env
+  - php artisan migrate:refresh
+  - php artisan db:seed --class=RestaurantTableSeeder
 script:
   - php vendor/bin/phpcs
   - php vendor/bin/phpunit
