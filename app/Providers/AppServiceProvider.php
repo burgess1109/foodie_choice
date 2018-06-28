@@ -25,17 +25,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('App\Repositories\RepositoryInterface',
-            'App\Repositories\Repository');
-
-        $this->app->bind('App\Models\RestaurantInterface',
-            'App\Models\Mongo\Restaurant\Restaurant');
-
-        $this->app->bind('App\Models\RestaurantInterface',
-            'App\Models\Mysql\Restaurant\Restaurant');
-
-        Builder::macro('getName', function() {
-            return $this->getModel()->getConnectionName();
-        });
     }
 }

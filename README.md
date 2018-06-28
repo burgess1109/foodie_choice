@@ -25,11 +25,8 @@
 
     https://pecl.php.net/package/mongodb
 
-* Laravel 5.5 需求
-
-    https://laravel.com/docs/5.5
-    
-    * PHP >= 7.0.0
+* PHP 版本需求
+    * PHP >= 7.1
     * OpenSSL PHP Extension
     * PDO PHP Extension
     * Mbstring PHP Extension
@@ -110,6 +107,11 @@ cp .env.example .env
 產生 APP KEY
  ```php
 php artisan key:generate
+ ```
+
+創建 Database
+ ```php
+mysql -e 'create database project_2018;'
  ```
 
 創建 Table Restaurant 及 初始資料

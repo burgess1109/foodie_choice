@@ -1,0 +1,24 @@
+os: linux
+dist: trusty
+sudo: false
+language: php
+php:
+  - 7.1
+services:
+  - mysql
+  - mongodb
+before_install:
+  - pecl install mongodb
+  - echo "extension = mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+install:
+  - composer install
+  - npm install
+  - cp .env.example .env
+  - php artisan key:generate
+  - mysql -e 'create database project_2018;'
+  - php artisan migrate:refresh
+  - php artisan db:seed --class=RestaurantTableSeeder
+script:
+  - php vendor/bin/phpcs
+  - php vendor/bin/phpunit
+
