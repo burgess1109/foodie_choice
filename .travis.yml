@@ -12,6 +12,7 @@ before_install:
   - echo "extension = mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 install:
   - composer install
+  - npm i npm@latest -g
   - npm install
   - cp .env.example .env
   - php artisan key:generate
