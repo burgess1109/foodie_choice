@@ -10,12 +10,19 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('foodie/menu', 'FoodieController@menu');
 Route::resource('foodie', 'FoodieController');
+Route::get('restaurant/menu', 'RestaurantController@menu');
+Route::resource('restaurant', 'RestaurantController');
 
 Route::get('/welcome', function () {
     return view('welcome');
 });
 
 Route::get('/', function () {
-    return view('index');
+    return view('index', ['path' => 'foodie']);
+});
+
+Route::get('/ioc', function () {
+    return view('index', ['path' => 'restaurant']);
 });

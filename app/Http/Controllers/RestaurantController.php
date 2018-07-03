@@ -2,31 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\Foodie\FoodieInterface;
-use App\Services\Menu\MenuInterface;
+use App\Facades\Restaurant;
+use App\Services\Menu\MenuService;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\App;
 
-class FoodieController extends BaseController
+class RestaurantController extends BaseController
 {
-    /** @var object FoodieService */
-    protected $foodieService;
-
-    /** @var object MenuService */
-    protected $menuService;
-
-    /**
-     * FoodieController constructor.
-     *
-     * @param FoodieInterface $foodieService
-     * @param MenuInterface $menuService
-     */
-    public function __construct(FoodieInterface $foodieService, MenuInterface $menuService)
-    {
-        $this->foodieService = $foodieService;
-        $this->menuService = $menuService;
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -34,7 +17,7 @@ class FoodieController extends BaseController
      */
     public function index()
     {
-        return json_encode($this->foodieService->getData());
+        return json_encode(Restaurant::getData());
     }
 
     /**
@@ -44,7 +27,7 @@ class FoodieController extends BaseController
      */
     public function menu()
     {
-        return json_encode($this->menuService->getData());
+        return json_encode(app(MenuService::class)->getData());
     }
 
     /**
@@ -55,7 +38,7 @@ class FoodieController extends BaseController
      */
     public function show(int $id)
     {
-        return json_encode($this->foodieService->getDataById((int)$id));
+        return json_encode(Restaurant::getDataById((int)$id));
     }
 
     /**
@@ -66,7 +49,7 @@ class FoodieController extends BaseController
      */
     public function edit(int $id)
     {
-        return json_encode($this->foodieService->getDataById((int)$id));
+        return json_encode(Restaurant::getDataById((int)$id));
     }
 
     /**
@@ -78,7 +61,7 @@ class FoodieController extends BaseController
      */
     public function update(Request $request, int $id)
     {
-        return $this->foodieService->updateData($request, (int)$id);
+        return Restaurant::updateData($request, (int)$id);
     }
 
     /**
@@ -99,7 +82,7 @@ class FoodieController extends BaseController
      */
     public function store(Request $request)
     {
-        return json_encode($this->foodieService->createData($request));
+        return json_encode(Restaurant::createData($request));
     }
 
     /**
@@ -110,6 +93,6 @@ class FoodieController extends BaseController
      */
     public function destroy(int $id)
     {
-        return $this->foodieService->deleteData((int)$id);
+        return Restaurant::deleteData((int)$id);
     }
 }

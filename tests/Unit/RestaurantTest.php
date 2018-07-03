@@ -2,42 +2,41 @@
 
 namespace Tests\Unit;
 
-use App\Services\Foodie\FoodieFactory;
+use App\Services\Restaurant\RestaurantFactory;
 use Tests\TestCase;
 
-class FoodieTest extends TestCase
+class RestaurantTest extends TestCase
 {
     protected $key_name = 'id';
 
-    protected $foodieRepository;
+    protected $restaurantRepository;
 
     protected function setUp()
     {
         parent::setUp();
-        $db_connect = config('database.default');
-        $this->foodieRepository = FoodieFactory::create($db_connect);
+        $this->restaurantRepository = app('restaurant.repository');
 
-        $this->key_name = $this->foodieRepository->getKeyName();
+        $this->key_name = $this->restaurantRepository->getKeyName();
     }
 
     /**
-     * Test function Index of FoodieController.
+     * Test function Index of RestaurantController.
      *
      */
     public function testIndex()
     {
-        $response = $this->get('/foodie');
+        $response = $this->get('/restaurant');
 
         $response->assertStatus(200);
     }
 
     /**
-     * Test function Show of FoodieController.
+     * Test function Show of RestaurantController.
      *
      */
     public function testShow()
     {
-        $response = $this->get('/foodie/1');
+        $response = $this->get('/restaurant/1');
 
         $response->assertStatus(200)
             ->assertJson([
@@ -46,33 +45,33 @@ class FoodieTest extends TestCase
     }
 
     /**
-     *  Test function Store of FoodieController with Exception
+     *  Test function Store of RestaurantController with Exception
      *
      */
     public function testStoreWithException()
     {
-        $response = $this->json('POST', '/foodie', ['name' => '']);
+        $response = $this->json('POST', '/restaurant', ['name' => '']);
         $this->assertEquals('There is no name', $response->exception->getMessage());
     }
 
     /**
-     * Test function Store of FoodieController.
+     * Test function Store of RestaurantController.
      *
      */
     public function testStore()
     {
-        $response = $this->json('POST', '/foodie', ['name' => 'TEST123']);
+        $response = $this->json('POST', '/restaurant', ['name' => 'TEST123']);
         $this->assertEquals('true', $response->original);
     }
 
     /**
-     *  Test function Update of FoodieController with Exception
+     *  Test function Update of RestaurantController with Exception
      *
      */
     public function testUpdateWithException()
     {
-        $max_sequence = $this->foodieRepository->getMaxSequence();
-        $response = $this->json('PATCH', '/foodie/' . $max_sequence, [
+        $max_sequence = $this->restaurantRepository->getMaxSequence();
+        $response = $this->json('PATCH', '/restaurant/' . $max_sequence, [
             'name' => '',
             'tel' => '02-' . rand(20000000, 29999999)
         ]);
@@ -80,13 +79,13 @@ class FoodieTest extends TestCase
     }
 
     /**
-     * Test function Update of FoodieController.
+     * Test function Update of RestaurantController.
      *
      */
     public function testUpdate()
     {
-        $max_sequence = $this->foodieRepository->getMaxSequence();
-        $response = $this->json('PATCH', '/foodie/' . $max_sequence, [
+        $max_sequence = $this->restaurantRepository->getMaxSequence();
+        $response = $this->json('PATCH', '/restaurant/' . $max_sequence, [
             'name' => 'TEST0002',
             'tel' => '02-' . rand(20000000, 29999999)
         ]);
@@ -95,13 +94,13 @@ class FoodieTest extends TestCase
     }
 
     /**
-     * Test function Delete of FoodieController.
+     * Test function Delete of RestaurantController.
      *
      */
     public function testDelete()
     {
-        $max_sequence = $this->foodieRepository->getMaxSequence();
-        $response = $this->call('DELETE', '/foodie/' . $max_sequence);
+        $max_sequence = $this->restaurantRepository->getMaxSequence();
+        $response = $this->call('DELETE', '/restaurant/' . $max_sequence);
 
         $this->assertEquals(1, $response->original);
     }

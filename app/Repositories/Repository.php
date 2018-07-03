@@ -4,8 +4,8 @@ namespace App\Repositories;
 
 abstract class Repository implements RepositoryInterface
 {
-    /** @var object repository */
-    protected $repository;
+    /** @var object model */
+    protected $model;
 
     /** @var string  The primary key name */
     protected $key_name;
@@ -22,7 +22,7 @@ abstract class Repository implements RepositoryInterface
      */
     public function getDataById($id)
     {
-        $row = $this->repository->where($this->key_name, $id)->first();
+        $row = $this->model->where($this->key_name, $id)->first();
 
         return $row;
     }
@@ -34,7 +34,7 @@ abstract class Repository implements RepositoryInterface
      */
     public function getData()
     {
-        $rows = $this->repository->get();
+        $rows = $this->model->get();
 
         return $rows;
     }
@@ -48,7 +48,7 @@ abstract class Repository implements RepositoryInterface
      */
     public function updateData($updateData, $id)
     {
-        return $this->repository->where($this->key_name, $id)->update($updateData);
+        return $this->model->where($this->key_name, $id)->update($updateData);
     }
 
     /**
@@ -59,7 +59,7 @@ abstract class Repository implements RepositoryInterface
      */
     public function createData($createData)
     {
-        return $this->repository->insert($createData);
+        return $this->model->insert($createData);
     }
 
     /**
@@ -70,7 +70,7 @@ abstract class Repository implements RepositoryInterface
      */
     public function deleteData($id)
     {
-        return $this->repository->where($this->key_name, $id)->delete();
+        return $this->model->where($this->key_name, $id)->delete();
     }
 
     /**
@@ -102,7 +102,7 @@ abstract class Repository implements RepositoryInterface
      */
     public function getMaxSequence()
     {
-        $max_sequence = $this->repository->max($this->key_name);
+        $max_sequence = $this->model->max($this->key_name);
         return (int)$max_sequence;
     }
 }

@@ -37,9 +37,10 @@ const app = new Vue({
         tel:'',
         opentime:'',
         status:'',
+        path:document.currentScript.getAttribute('data-path')
     },
     created() {
-        axios.get('/foodie').then(
+        axios.get('/'+this.path).then(
             response => {
                 // JSON responses are automatically parsed.
                 var i=0;
@@ -95,7 +96,7 @@ const app = new Vue({
         },
         show:function (id) {
             if(id){
-                axios.get('/foodie/'+id).then(
+                axios.get('/'+this.path+'/'+id).then(
                     response => {
                         // JSON responses are automatically parsed.
                         var address = response.data.address;
@@ -132,11 +133,11 @@ const app = new Vue({
 
             if(id == 0){
                 var method = 'post';
-                var url = '/foodie';
+                var url = '/'+this.path;
                 var type_str = '新增';
             }else{
                 var method = 'put';
-                var url = '/foodie/'+id;
+                var url = '/'+this.path+'/'+id;
                 var type_str = '修改';
             }
 
@@ -174,7 +175,7 @@ const app = new Vue({
             }else {
                 axios({
                     method:'delete',
-                    url:'/foodie/'+id
+                    url:'/'+this.path+'/'+id
                 })
                     .then(function(response) {
                         if(response.data == true){

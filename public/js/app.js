@@ -964,7 +964,6 @@ process.umask = function() { return 0; };
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-console.log(document.currentScript.getAttribute('data-path'));
 
 __webpack_require__(30);
 
@@ -997,12 +996,13 @@ var app = new Vue({
         detail: '',
         tel: '',
         opentime: '',
-        status: ''
+        status: '',
+        path: document.currentScript.getAttribute('data-path')
     },
     created: function created() {
         var _this = this;
 
-        axios.get('/foodie').then(function (response) {
+        axios.get('/' + this.path).then(function (response) {
             // JSON responses are automatically parsed.
             var i = 0;
             var j = 0;
@@ -1059,7 +1059,7 @@ var app = new Vue({
             var _this2 = this;
 
             if (id) {
-                axios.get('/foodie/' + id).then(function (response) {
+                axios.get('/' + this.path + '/' + id).then(function (response) {
                     // JSON responses are automatically parsed.
                     var address = response.data.address;
                     address = JSON.parse(address);
@@ -1094,11 +1094,11 @@ var app = new Vue({
 
             if (id == 0) {
                 var method = 'post';
-                var url = '/foodie';
+                var url = '/' + this.path;
                 var type_str = '新增';
             } else {
                 var method = 'put';
-                var url = '/foodie/' + id;
+                var url = '/' + this.path + '/' + id;
                 var type_str = '修改';
             }
 
@@ -1133,7 +1133,7 @@ var app = new Vue({
             } else {
                 axios({
                     method: 'delete',
-                    url: '/foodie/' + id
+                    url: '/' + this.path + '/' + id
                 }).then(function (response) {
                     if (response.data == true) {
                         alert('刪除成功!');

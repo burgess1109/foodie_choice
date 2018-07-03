@@ -1,27 +1,27 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Foodie;
 
-use App\Repositories\Restaurant\RestaurantRepository;
-use App\Models\Mongo\Restaurant\Restaurant as Mongo_Restaurant;
-use App\Models\Mysql\Restaurant\Restaurant as Mysql_Restaurant;
+use App\Repositories\Foodie\FoodieRepository;
+use App\Models\Mongo\Restaurant\Restaurant as MongoRestaurant;
+use App\Models\Mysql\Restaurant\Restaurant as MysqlRestaurant;
 
-class RestaurantFactory
+class FoodieFactory
 {
     /**
      * Switch repository
      *
      * @param string $db_connect
-     * @return RestaurantRepository
+     * @return FoodieRepository
      */
     public static function create($db_connect = "")
     {
         switch ($db_connect) {
             case 'mongodb':
-                return new RestaurantRepository(new Mongo_Restaurant());
+                return new FoodieRepository(new MongoRestaurant());
                 break;
             default:
-                return new RestaurantRepository(new Mysql_Restaurant());
+                return new FoodieRepository(new MysqlRestaurant());
                 break;
         }
     }
@@ -36,11 +36,9 @@ class RestaurantFactory
     {
         switch ($db_connect) {
             case 'mongodb':
-                return new Mongo_Restaurant();
-                break;
+                return new MongoRestaurant();
             default:
-                return new Mysql_Restaurant();
-                break;
+                return new MysqlRestaurant();
         }
     }
 
@@ -54,11 +52,9 @@ class RestaurantFactory
     {
         switch ($db_connect) {
             case 'mongodb':
-                return Mongo_Restaurant::class;
-                break;
+                return MongoRestaurant::class;
             default:
-                return Mysql_Restaurant::class;
-                break;
+                return MysqlRestaurant::class;
         }
     }
 }

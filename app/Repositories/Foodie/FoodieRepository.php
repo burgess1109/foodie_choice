@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Repositories\Restaurant;
+namespace App\Repositories\Foodie;
 
 use DB;
 use App\Models\RestaurantInterface;
 use App\Repositories\Repository;
 
-class RestaurantRepository extends Repository
+class FoodieRepository extends Repository
 {
-    public function __construct()
+    public function __construct(RestaurantInterface $restaurant)
     {
         parent::__construct();
-        $this->model = app('restaurant.model');
+        $this->model = $restaurant;
 
         $this->key_name = $this->model->getKeyName();
     }

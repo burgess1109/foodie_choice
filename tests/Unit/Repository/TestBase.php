@@ -2,8 +2,7 @@
 
 namespace Tests\Unit\Repository;
 
-use App\Services\RestaurantFactory;
-use Config;
+use App\Services\Foodie\FoodieFactory;
 use DB;
 use Tests\TestCase;
 
@@ -13,20 +12,20 @@ abstract class TestBase extends TestCase
 
     protected $fake_data;
 
-    protected $restaurant;
+    protected $foodie;
 
     protected $factory;
 
-    protected $restaurantRepository;
+    protected $foodieRepository;
 
     protected $add_id = [];
 
     protected function setUp()
     {
         parent::setUp();
-        $this->db_connect = Config::get('database.default');
+        $this->db_connect = config('database.default');
 
-        $this->restaurantRepository = RestaurantFactory::create($this->db_connect);
+        $this->foodieRepository = FoodieFactory::create($this->db_connect);
 
         if ($this->db_connect != 'mongodb') {
             DB::beginTransaction();
@@ -38,9 +37,9 @@ abstract class TestBase extends TestCase
         switch ($this->db_connect) {
             case 'mongodb':
                 foreach ($this->add_id as $id) {
-                    $this->restaurant->where('_id', $id)->delete();
+                    $this->foodie->where('_id', $id)->delete();
                 }
-                $this->restaurant->where('name', 'NEW0001')->delete();
+                $this->foodie->where('name', 'NEW0001')->delete();
                 break;
             default:
                 DB::rollBack();
@@ -55,11 +54,11 @@ abstract class TestBase extends TestCase
      */
     protected function getFakeData($number = 1)
     {
-        $this->restaurant = RestaurantFactory::createModel($this->db_connect);
-        $this->factory = factory(RestaurantFactory::getModelPath($this->db_connect), $number);
+        $this->foodie = FoodieFactory::createModel($this->db_connect);
+        $this->factory = factory(FoodieFactory::getModelPath($this->db_connect), $number);
 
-        $key_name = $this->restaurant->getKeyName();
-        $max_sequence = $this->restaurant->max($key_name);
+        $key_name = $this->foodie->getKeyName();
+        $max_sequence = $this->foodie->max($key_name);
 
         for ($i = 1; $i <= $number; $i++) {
             if ($this->db_connect == 'mongodb') {

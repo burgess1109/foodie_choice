@@ -2,9 +2,10 @@
 
 namespace Tests\Unit\Controller;
 
-use Mockery;
-use App\Services\RestaurantService;
 use App\Http\Controllers\FoodieController;
+use App\Services\Foodie\FoodieService;
+use App\Services\Menu\MenuService;
+use Mockery;
 use Tests\TestCase;
 
 class FoodieControllerTest extends TestCase
@@ -21,12 +22,14 @@ class FoodieControllerTest extends TestCase
      */
     public function testIndex()
     {
-        $mock = Mockery::mock(RestaurantService::class);
+        $foodieService = Mockery::mock(FoodieService::class);
 
-        $mock->shouldReceive('getData')->atLeast()
+        $foodieService->shouldReceive('getData')->atLeast()
             ->times(1);
 
-        $RouletteController = new FoodieController($mock);
+        $menuService = Mockery::mock(MenuService::class);
+
+        $RouletteController = new FoodieController($foodieService, $menuService);
 
         $RouletteController->index();
     }

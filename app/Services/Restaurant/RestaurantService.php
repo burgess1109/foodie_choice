@@ -1,34 +1,35 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Restaurant;
 
-class RestaurantService extends Service
+use App;
+use Illuminate\Http\Request;
+
+class RestaurantService implements RestaurantInterface
 {
     /** @var object restaurant repository */
     protected $restaurantRepository;
+
+    /** @var  string ENV DB_CONNECT */
+    protected $db_connect;
 
     /** @var array The columns which can be  accepted for update and insert */
     protected $acceptedParameters = ['name', 'city', 'detail', 'status', 'tel', 'opentime'];
 
     public function __construct()
     {
-        parent::__construct();
-
-        $this->switchRepository();
-
-        return $this->restaurantRepository;
+        $this->db_connect = config('database.default');
+        $this->restaurantRepository = app('restaurant.repository');
     }
 
     /**
-     * Get restaurantRepository
+     * Get db_connect
      *
+     * @return string
      */
-    protected function switchRepository()
+    public function getDBConnect()
     {
-        RestaurantFactory::create($this->db_connect);
-        $this->setRepository(RestaurantFactory::create($this->db_connect));
-
-        $this->restaurantRepository = $this->getRepository();
+        return $this->db_connect;
     }
 
     /**
@@ -37,7 +38,7 @@ class RestaurantService extends Service
      * @param $id
      * @return mixed
      */
-    public function getDataById($id)
+    public function getDataById(int $id)
     {
         return $this->restaurantRepository->getDataById($id);
     }
@@ -60,7 +61,7 @@ class RestaurantService extends Service
      * @return mixed
      * @throws \Exception
      */
-    public function updateData($request, $id)
+    public function updateData(Request $request, int $id)
     {
         $updateData = $request->only($this->acceptedParameters); //array
         if (empty($updateData['name'])) {
@@ -77,7 +78,7 @@ class RestaurantService extends Service
      * @return mixed
      * @throws \Exception
      */
-    public function createData($request)
+    public function createData(Request $request)
     {
         $createData = $request->only($this->acceptedParameters); //array
         if (empty($createData['name'])) {
@@ -91,10 +92,10 @@ class RestaurantService extends Service
     /**
      * Remove data by id
      *
-     * @param $id
+     * @param int $id
      * @return mixed
      */
-    public function deleteData($id)
+    public function deleteData(int $id)
     {
         return $this->restaurantRepository->deleteData($id);
     }
@@ -102,7 +103,7 @@ class RestaurantService extends Service
     /**
      * Get $acceptedParameters
      *
-     * @return $this->acceptedParameters
+     * @return array acceptedParameters
      */
     public function getAcceptedParameters()
     {

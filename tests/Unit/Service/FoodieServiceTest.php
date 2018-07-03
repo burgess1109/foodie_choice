@@ -2,10 +2,10 @@
 
 namespace Tests\Unit\Service;
 
-use App\Services\RestaurantService;
+use App\Services\Foodie\FoodieService;
 use Tests\TestCase;
 
-class RestaurantServiceTest extends TestCase
+class FoodieServiceTest extends TestCase
 {
     protected $service;
 
@@ -14,7 +14,7 @@ class RestaurantServiceTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->service = new RestaurantService();
+        $this->service = new FoodieService();
     }
 
     /**
@@ -32,11 +32,14 @@ class RestaurantServiceTest extends TestCase
      * Test Method  setDBConnect
      *
      */
-    public function testSetDBConnect()
+    public function testDBConnectWithConfigSetting()
     {
-        $db_connect = 'mysql';
-        $this->service->setDBConnect($db_connect);
+        $dbConnect = ['mysql', 'mongodb'];
+        foreach ($dbConnect as $database) {
+            config(['database.default' => $database]);
 
-        $this->assertEquals($db_connect, $this->service->db_connect);
+            $service = new FoodieService();
+            $this->assertEquals($database, $service->getDBConnect());
+        }
     }
 }

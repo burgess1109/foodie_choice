@@ -176,6 +176,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\RestaurantServiceProvider::class,
 
         Jenssegers\Mongodb\MongodbServiceProvider::class,
 
@@ -229,6 +230,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Mongo'  => Jenssegers\Mongodb\MongodbServiceProvider::class,
 
+        'Restaurant'  => App\Facades\Restaurant::class,
     ],
 
 ];

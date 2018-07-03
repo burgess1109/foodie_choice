@@ -1,21 +1,20 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Foodie;
 
-use Config;
 use App\Repositories\RepositoryInterface;
 
 abstract class Service
 {
     /** @var  string ENV DB_CONNECT */
-    public $db_connect;
+    protected $db_connect;
     /** @var  object repository */
     protected $repository;
 
     public function __construct()
     {
         if (empty($this->db_connect)) {
-            $this->db_connect = Config::get('database.default');
+            $this->db_connect = config('database.default');
         }
     }
 
@@ -34,7 +33,7 @@ abstract class Service
      *
      * @param RepositoryInterface $repository
      */
-    public function setRepository(RepositoryInterface $repository)
+    protected function setRepository(RepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
@@ -47,18 +46,5 @@ abstract class Service
     public function getDBConnect()
     {
         return $this->db_connect;
-    }
-
-    /**
-     * Set db_connect
-     *
-     * @param $connect
-     */
-    public function setDBConnect($connect)
-    {
-        $this->db_connect = $connect;
-        if (method_exists($this, 'switchRepository')) {
-            $this->switchRepository();
-        }
     }
 }
