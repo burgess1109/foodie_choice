@@ -250,6 +250,8 @@ FoodieController 需使用到 FoodieService 及 MenuService 物件，因此在 _
 
 Container 介紹及使用方式可以先參考 [Pimple](https://github.com/silexphp/Pimple)，而 Facade 可以去網路搜尋 Facade Pattern，對 Pimple 及 Facade Pattern 有概念後會更容易理解 Laravel IoC Container 。
 
+Laravel Facades 原理請參考 https://laravel-china.org/docs/laravel/5.5/facades/1291 ，接下來僅說明使用及實作方式。
+
 簡單舉得例子，laravel config helper function 大家都會使用，其實 config 有三種取得方法 : 
 ```php
 // IoC container 取法
@@ -330,9 +332,17 @@ bind 跟 singleton 差異是是否使用單例模式，單例模式是一個類�
     }
  ```
 
-接著再去 config/app.php 的 providers 加入 App\Providers\RestaurantServiceProvider::class ； aliases 加入 'Restaurant'  => App\Facades\Restaurant::class 。
-
-這樣即完成 facade 註冊，可在任何地方使用靜態方法操作 RestaurantService 的 Method : 
+接著再去修改 config/app.php
+ 
+  ```php
+  // 'providers' 加入
+   App\Providers\RestaurantServiceProvider::class
+   
+   // 'aliases' 加入
+   'Restaurant'  => App\Facades\Restaurant::class
+   ```
+ 
+這樣即完成 facade 設置，之後在任何地方使用靜態方法操作 RestaurantService 的 method : 
 
  ```php
     Restaurant::getData();
