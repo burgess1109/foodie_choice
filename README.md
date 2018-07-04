@@ -395,9 +395,23 @@ bind 跟 singleton 差異是是否使用單例模式，單例模式是一個類�
 前端的 ajax requests 是使用 Axios 套件
  
 
-# 單元測試(PHPUnit)
+# 檢查及測試
 
-在 tests/Unit 路徑下有寫了一些 Test Code 涵蓋一些驗收測試及單元測試，當然可以依需求自行擴充，Test Code 使用了 PHP Mockery 及 Faker 兩種 php package
+## PSR-2
+
+本專案有安裝 [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) ，檢查程式碼是否符合 PSR-2 標準，請查看 phpcs.xml
+
+ ```php
+ #全部檢查
+vendor/bin/phpcs
+
+#檢查某一支
+vendor/bin/phpcs tests/Unit/FoodieTest.php
+ ```
+
+## 單元測試
+
+在 tests/Unit 路徑下有寫了一些 Test Code 涵蓋一些驗收測試及單元測試，當然可以依需求自行擴充
 
  ```php
  #全部測試
@@ -422,6 +436,7 @@ PHP 的 mockery 跟 faker 兩個 packages 很實用，讓撰寫測試替身時�
   ```
   
 有興趣可以查看 Illuminate\Support\Facades\Facade
+
 
 # 結語
 
