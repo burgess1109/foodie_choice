@@ -102,7 +102,7 @@ class FoodieService extends Service implements FoodieInterface
     /**
      * Get $acceptedParameters
      *
-     * @return array acceptedParameters
+     * @return array
      */
     public function getAcceptedParameters()
     {

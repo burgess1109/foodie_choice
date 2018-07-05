@@ -30,7 +30,7 @@ class FoodieFactory
      * Switch model
      *
      * @param string $db_connect
-     * @return object model
+     * @return MongoRestaurant|MysqlRestaurant
      */
     public static function createModel($db_connect = "")
     {
@@ -46,7 +46,7 @@ class FoodieFactory
      * Get model path
      *
      * @param string $db_connect
-     * @return string model path
+     * @return string
      */
     public static function getModelPath($db_connect = "")
     {
