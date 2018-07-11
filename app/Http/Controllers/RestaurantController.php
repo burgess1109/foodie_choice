@@ -17,7 +17,11 @@ class RestaurantController extends BaseController
      */
     public function index()
     {
-        return json_encode(Restaurant::getData());
+        try {
+            return response()->json(Restaurant::getData());
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()])->setStatusCode(500);
+        }
     }
 
     /**
@@ -27,7 +31,11 @@ class RestaurantController extends BaseController
      */
     public function menu()
     {
-        return json_encode(app(MenuService::class)->getData());
+        try {
+            return response()->json(app(MenuService::class)->getData());
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()])->setStatusCode(500);
+        }
     }
 
     /**
@@ -38,7 +46,11 @@ class RestaurantController extends BaseController
      */
     public function show(int $id)
     {
-        return json_encode(Restaurant::getDataById((int)$id));
+        try {
+            return response()->json(Restaurant::getDataById($id));
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()])->setStatusCode(500);
+        }
     }
 
     /**
@@ -49,7 +61,11 @@ class RestaurantController extends BaseController
      */
     public function edit(int $id)
     {
-        return json_encode(Restaurant::getDataById((int)$id));
+        try {
+            return response()->json(Restaurant::getDataById($id));
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()])->setStatusCode(500);
+        }
     }
 
     /**
@@ -61,7 +77,15 @@ class RestaurantController extends BaseController
      */
     public function update(Request $request, int $id)
     {
-        return Restaurant::updateData($request, (int)$id);
+        try {
+            return response()->json(Restaurant::updateData($request, $id));
+        } catch (\Exception $e) {
+            if (empty($e->getCode())) {
+                return response()->json(['error' => $e->getMessage()])->setStatusCode(500);
+            } else {
+                return response()->json(['error' => $e->getMessage()])->setStatusCode($e->getCode());
+            }
+        }
     }
 
     /**
@@ -82,7 +106,15 @@ class RestaurantController extends BaseController
      */
     public function store(Request $request)
     {
-        return json_encode(Restaurant::createData($request));
+        try {
+            return response()->json(Restaurant::createData($request));
+        } catch (\Exception $e) {
+            if (empty($e->getCode())) {
+                return response()->json(['error' => $e->getMessage()])->setStatusCode(500);
+            } else {
+                return response()->json(['error' => $e->getMessage()])->setStatusCode($e->getCode());
+            }
+        }
     }
 
     /**
@@ -93,6 +125,10 @@ class RestaurantController extends BaseController
      */
     public function destroy(int $id)
     {
-        return Restaurant::deleteData((int)$id);
+        try {
+            return response()->json(Restaurant::deleteData($id));
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()])->setStatusCode(500);
+        }
     }
 }

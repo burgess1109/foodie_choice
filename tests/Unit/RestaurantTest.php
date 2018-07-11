@@ -45,13 +45,13 @@ class RestaurantTest extends TestCase
     }
 
     /**
-     *  Test function Store of RestaurantController with Exception
+     *  Test function Store of RestaurantController with  empty name
      *
      */
-    public function testStoreWithException()
+    public function testStoreWithEmptyName()
     {
         $response = $this->json('POST', '/restaurant', ['name' => '']);
-        $this->assertEquals('There is no name', $response->exception->getMessage());
+        $response->assertStatus(400)->assertJson(['error' => 'There is no name']);
     }
 
     /**
@@ -61,21 +61,23 @@ class RestaurantTest extends TestCase
     public function testStore()
     {
         $response = $this->json('POST', '/restaurant', ['name' => 'TEST123']);
-        $this->assertEquals('true', $response->original);
+
+        $response->assertStatus(200);
+        $this->assertTrue($response->original);
     }
 
     /**
-     *  Test function Update of RestaurantController with Exception
+     *  Test function Update of RestaurantController with empty name
      *
      */
-    public function testUpdateWithException()
+    public function testUpdateWithEmptyName()
     {
         $max_sequence = $this->restaurantRepository->getMaxSequence();
         $response = $this->json('PATCH', '/restaurant/' . $max_sequence, [
             'name' => '',
             'tel' => '02-' . rand(20000000, 29999999)
         ]);
-        $this->assertEquals('There is no name', $response->exception->getMessage());
+        $response->assertStatus(400)->assertJson(['error' => 'There is no name']);
     }
 
     /**
@@ -90,7 +92,8 @@ class RestaurantTest extends TestCase
             'tel' => '02-' . rand(20000000, 29999999)
         ]);
 
-        $this->assertEquals(1, $response->original);
+        $response->assertStatus(200);
+        $this->assertEquals(true, $response->original);
     }
 
     /**
@@ -102,6 +105,7 @@ class RestaurantTest extends TestCase
         $max_sequence = $this->restaurantRepository->getMaxSequence();
         $response = $this->call('DELETE', '/restaurant/' . $max_sequence);
 
-        $this->assertEquals(1, $response->original);
+        $response->assertStatus(200);
+        $this->assertEquals(true, $response->original);
     }
 }

@@ -63,12 +63,12 @@ class RestaurantService implements RestaurantInterface
      */
     public function updateData(Request $request, int $id)
     {
-        $updateData = $request->only($this->acceptedParameters); //array
-        if (empty($updateData['name'])) {
-            throw new \Exception('There is no name');
+        $input = $request->only($this->acceptedParameters); //array
+        if (empty($input['name'])) {
+            throw new \Exception('There is no name', 400);
         }
 
-        return $this->restaurantRepository->updateData($updateData, $id);
+        return $this->restaurantRepository->updateData($input, $id);
     }
 
     /**
@@ -80,13 +80,12 @@ class RestaurantService implements RestaurantInterface
      */
     public function createData(Request $request)
     {
-        $createData = $request->only($this->acceptedParameters); //array
-        if (empty($createData['name'])) {
-            throw new \Exception('There is no name');
+        $input = $request->only($this->acceptedParameters); //array
+        if (empty($input['name'])) {
+            throw new \Exception('There is no name', 400);
         }
 
-
-        return $this->restaurantRepository->createData($createData);
+        return $this->restaurantRepository->createData($input);
     }
 
     /**

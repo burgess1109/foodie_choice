@@ -137,9 +137,9 @@ npm run dev
 
 ## RESTful Resource Controllers
 
-Controller 使用 Laravel RESTful Resource Controllers 設計。
+Controller 使用 Laravel RESTful Resource Controllers 設計， API 格式文件可參考 openapi.yaml。
 
-依 laravel 官方文件，本例執行下列指令即產生符合 RESTful 的 CRUD 。
+依 laravel 官方文件，本例執行下列指令即產生符合 RESTful 的 CRUD。
 
  ```php
 php artisan make:controller FoodieController

@@ -45,25 +45,27 @@ const app = new Vue({
                 // JSON responses are automatically parsed.
                 var i=0;
                 var j=0;
-                for(var key in response.data){
-                    var address = response.data[key].address;
-                    address =  JSON.parse(address);
-                    response.data[key].address = address[0];
+                if(response.error === undefined){
+                    for(var key in response.data){
+                        var address = response.data[key].address;
+                        address =  JSON.parse(address);
+                        response.data[key].address = address[0];
 
-                    //id轉換
-                    if(typeof response.data[key]._id != 'undefined' && response.data[key]._id ){
-                        response.data[key].id = response.data[key]._id;
-                    }
+                        //id轉換
+                        if(typeof response.data[key]._id != 'undefined' && response.data[key]._id ){
+                            response.data[key].id = response.data[key]._id;
+                        }
 
-                    if(response.data[key].status == 'enabled'){
-                        this.enabled_posts[i] = response.data[key];
-                        i++;
-                    }else{
-                        this.disabled_posts[j] = response.data[key];
-                        j++;
+                        if(response.data[key].status == 'enabled'){
+                            this.enabled_posts[i] = response.data[key];
+                            i++;
+                        }else{
+                            this.disabled_posts[j] = response.data[key];
+                            j++;
+                        }
                     }
+                    this.posts=response.data;
                 }
-                this.posts=response.data;
             }).catch(e => {
                 this.errors.push(e)
         })

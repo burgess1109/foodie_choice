@@ -34,7 +34,11 @@ class FoodieController extends BaseController
      */
     public function index()
     {
-        return json_encode($this->foodieService->getData());
+        try {
+            return response()->json($this->foodieService->getData());
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()])->setStatusCode(500);
+        }
     }
 
     /**
@@ -44,7 +48,11 @@ class FoodieController extends BaseController
      */
     public function menu()
     {
-        return json_encode($this->menuService->getData());
+        try {
+            return response()->json($this->menuService->getData());
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()])->setStatusCode(500);
+        }
     }
 
     /**
@@ -55,7 +63,11 @@ class FoodieController extends BaseController
      */
     public function show(int $id)
     {
-        return json_encode($this->foodieService->getDataById((int)$id));
+        try {
+            return response()->json($this->foodieService->getDataById($id));
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()])->setStatusCode(500);
+        }
     }
 
     /**
@@ -66,7 +78,11 @@ class FoodieController extends BaseController
      */
     public function edit(int $id)
     {
-        return json_encode($this->foodieService->getDataById((int)$id));
+        try {
+            return response()->json($this->foodieService->getDataById($id));
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()])->setStatusCode(500);
+        }
     }
 
     /**
@@ -78,7 +94,15 @@ class FoodieController extends BaseController
      */
     public function update(Request $request, int $id)
     {
-        return $this->foodieService->updateData($request, (int)$id);
+        try {
+            return response()->json($this->foodieService->updateData($request, $id));
+        } catch (\Exception $e) {
+            if (empty($e->getCode())) {
+                return response()->json(['error' => $e->getMessage()])->setStatusCode(500);
+            } else {
+                return response()->json(['error' => $e->getMessage()])->setStatusCode($e->getCode());
+            }
+        }
     }
 
     /**
@@ -99,7 +123,15 @@ class FoodieController extends BaseController
      */
     public function store(Request $request)
     {
-        return json_encode($this->foodieService->createData($request));
+        try {
+            return response()->json($this->foodieService->createData($request));
+        } catch (\Exception $e) {
+            if (empty($e->getCode())) {
+                return response()->json(['error' => $e->getMessage()])->setStatusCode(500);
+            } else {
+                return response()->json(['error' => $e->getMessage()])->setStatusCode($e->getCode());
+            }
+        }
     }
 
     /**
@@ -110,6 +142,10 @@ class FoodieController extends BaseController
      */
     public function destroy(int $id)
     {
-        return $this->foodieService->deleteData((int)$id);
+        try {
+            return response()->json($this->foodieService->deleteData($id));
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()])->setStatusCode(500);
+        }
     }
 }

@@ -1,0 +1,233 @@
+swagger: '2.0'
+info:
+  description: Foodie API
+  version: 1.0.0
+  title: Foodie API
+host: localhost
+basePath: /
+schemes:
+  - https
+produces:
+  - application/json
+paths:
+  /foodie:
+    get:
+      summary: 取得所有餐廳資料
+      operationId: foodie_index
+      responses:
+        '200':
+          description: Successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/RestaurantDetailResponse'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    post:
+      summary: 新增餐廳資料
+      operationId: foodie_store
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - name: body
+          in: body
+          description: 新增內容
+          required: true
+          schema:
+            $ref: '#/definitions/RestaurantResquest'
+      responses:
+        '200':
+          description: Successful operation
+          schema:
+            $ref: '#/definitions/SuccessResponse'
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /foodie/menu:
+    get:
+      summary: 取得 Menu 資料
+      operationId: foodie_menu
+      responses:
+        '200':
+          description: Successful operation
+          schema:
+            type: string
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /foodie/{id}:
+    get:
+      summary: 取得單筆餐廳資料
+      operationId: foodie_show
+      parameters:
+        - name: id
+          in: path
+          description: 餐廳編號
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Successful operation
+          schema:
+            $ref: '#/definitions/RestaurantDetailResponse'
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    put:
+      summary: 更新餐廳資料
+      operationId: foodie_update
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - name: id
+          in: path
+          description: 餐廳編號
+          required: true
+          type: integer
+        - name: body
+          in: body
+          description: 更新內容
+          required: true
+          schema:
+            $ref: '#/definitions/RestaurantResquest'
+      responses:
+        '200':
+          description: Successful operation
+          schema:
+            $ref: '#/definitions/SuccessResponse'
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    delete:
+      summary: 更新餐廳資料
+      operationId: foodie_destroy
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - name: id
+          in: path
+          description: 餐廳編號
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Successful operation
+          schema:
+            $ref: '#/definitions/SuccessResponse'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /foodie/{id}/edit:
+    get:
+      summary: 取得單筆餐廳資料
+      operationId: foodie_edit
+      parameters:
+        - name: id
+          in: path
+          description: 餐廳編號
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Successful operation
+          schema:
+            $ref: '#/definitions/RestaurantDetailResponse'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+definitions:
+  RestaurantDetailResponse:
+    type: object
+    required:
+      - id
+    properties:
+      id:
+        description: 餐廳 ID
+        type: integer
+      name:
+        description: 餐廳名稱
+        type: string
+      address:
+        description: 餐廳地址
+        type: string
+      tel:
+        description: 餐廳電話
+        type: string
+      opentime:
+        description: 營業時間
+        type: string
+      status:
+        description: >
+          餐廳選擇名單狀態：
+            * `enabled` - 納入選擇名單
+            * `disabled` - 不納入選擇名單
+        type: string
+        enum:
+          - enabled
+          - disabled
+  RestaurantResquest:
+    type: object
+    required:
+      - name
+    properties:
+      name:
+        description: 餐廳名稱
+        type: string
+      city:
+        description: 餐廳所在城市
+        type: string
+      detail:
+        description: 餐廳地址
+        type: string
+      tel:
+        description: 餐廳電話
+        type: string
+      opentime:
+        description: 營業時間
+        type: string
+      status:
+        description: >
+          是否加入選擇名單狀態：
+            * `enabled` - 加入
+            * `disabled` - 不加入
+        type: string
+        enum:
+          - enabled
+          - disabled
+  SuccessResponse:
+    description: 成功回傳
+    type: boolean
+    default: true
+  ErrorResponse:
+    description: 500 錯誤回傳
+    type: object
+    properties:
+      error:
+        description: 錯誤內容
+        type: string

@@ -46,13 +46,13 @@ class FoodieTest extends TestCase
     }
 
     /**
-     *  Test function Store of FoodieController with Exception
+     *  Test function Store of FoodieController with  empty name
      *
      */
-    public function testStoreWithException()
+    public function testStoreWithEmptyName()
     {
         $response = $this->json('POST', '/foodie', ['name' => '']);
-        $this->assertEquals('There is no name', $response->exception->getMessage());
+        $response->assertStatus(400)->assertJson(['error' => 'There is no name']);
     }
 
     /**
@@ -62,21 +62,23 @@ class FoodieTest extends TestCase
     public function testStore()
     {
         $response = $this->json('POST', '/foodie', ['name' => 'TEST123']);
-        $this->assertEquals('true', $response->original);
+
+        $response->assertStatus(200);
+        $this->assertTrue($response->original);
     }
 
     /**
-     *  Test function Update of FoodieController with Exception
+     *  Test function Update of FoodieController with empty name
      *
      */
-    public function testUpdateWithException()
+    public function testUpdateWithEmptyName()
     {
         $max_sequence = $this->foodieRepository->getMaxSequence();
         $response = $this->json('PATCH', '/foodie/' . $max_sequence, [
             'name' => '',
             'tel' => '02-' . rand(20000000, 29999999)
         ]);
-        $this->assertEquals('There is no name', $response->exception->getMessage());
+        $response->assertStatus(400)->assertJson(['error' => 'There is no name']);
     }
 
     /**
@@ -91,7 +93,8 @@ class FoodieTest extends TestCase
             'tel' => '02-' . rand(20000000, 29999999)
         ]);
 
-        $this->assertEquals(1, $response->original);
+        $response->assertStatus(200);
+        $this->assertEquals(true, $response->original);
     }
 
     /**
@@ -103,6 +106,7 @@ class FoodieTest extends TestCase
         $max_sequence = $this->foodieRepository->getMaxSequence();
         $response = $this->call('DELETE', '/foodie/' . $max_sequence);
 
-        $this->assertEquals(1, $response->original);
+        $response->assertStatus(200);
+        $this->assertEquals(true, $response->original);
     }
 }
