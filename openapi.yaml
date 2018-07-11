@@ -225,7 +225,7 @@ definitions:
     type: boolean
     default: true
   ErrorResponse:
-    description: 500 錯誤回傳
+    description: 錯誤回傳
     type: object
     properties:
       error:
