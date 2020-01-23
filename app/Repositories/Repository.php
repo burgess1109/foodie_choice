@@ -10,10 +10,6 @@ abstract class Repository implements RepositoryInterface
     /** @var string  The primary key name */
     protected $key_name;
 
-    public function __construct()
-    {
-    }
-
     /**
      * Get single date by id
      *
@@ -88,7 +84,7 @@ abstract class Repository implements RepositoryInterface
      *
      * @return int $next_sequence
      */
-    protected function getNextSequence()
+    public function getNextSequence()
     {
         $max_sequence = $this->getMaxSequence();
         $next_sequence = $max_sequence ? $max_sequence + 1 : 1;

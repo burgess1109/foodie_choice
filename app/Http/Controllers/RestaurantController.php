@@ -6,10 +6,14 @@ use App\Facades\Restaurant;
 use App\Services\Menu\MenuService;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Support\Facades\App;
 
 class RestaurantController extends BaseController
 {
+    /**
+     * @var array The columns which can be accepted for update and insert
+     */
+    private $acceptedParameters = ['name', 'city', 'detail', 'status', 'tel', 'opentime'];
+
     /**
      * Display a listing of the resource.
      *
@@ -78,7 +82,12 @@ class RestaurantController extends BaseController
     public function update(Request $request, int $id)
     {
         try {
-            return response()->json(Restaurant::updateData($request, $id));
+            $input = $request->only($this->acceptedParameters); //array
+            if (empty($input['name'])) {
+                throw new \Exception('There is no name', 400);
+            }
+
+            return response()->json(Restaurant::updateData($input, $id));
         } catch (\Exception $e) {
             if (empty($e->getCode())) {
                 return response()->json(['error' => $e->getMessage()])->setStatusCode(500);
@@ -107,7 +116,12 @@ class RestaurantController extends BaseController
     public function store(Request $request)
     {
         try {
-            return response()->json(Restaurant::createData($request));
+            $input = $request->only($this->acceptedParameters); //array
+            if (empty($input['name'])) {
+                throw new \Exception('There is no name', 400);
+            }
+
+            return response()->json(Restaurant::createData($input));
         } catch (\Exception $e) {
             if (empty($e->getCode())) {
                 return response()->json(['error' => $e->getMessage()])->setStatusCode(500);

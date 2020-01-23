@@ -2,49 +2,74 @@
 
 namespace App\Services\Foodie;
 
-use App\Repositories\RepositoryInterface;
+use App\Repositories\FoodieRepository;
+use App\Services\BasicInterface;
 
-abstract class Service
+class Service implements BasicInterface
 {
-    /** @var  string ENV DB_CONNECT */
-    protected $db_connect;
-    /** @var  object repository */
-    protected $repository;
+    /**
+     * @var FoodieRepository repository
+    */
+    private $repository;
 
     public function __construct()
     {
-        if (empty($this->db_connect)) {
-            $this->db_connect = config('database.default');
-        }
+        $db_connect = config('database.default');
+        $this->repository = RepositoryFactory::create($db_connect);
     }
 
     /**
-     * Get repository
+     * Get single date by id
      *
-     * @return object
+     * @param $id
+     * @return mixed
      */
-    public function getRepository()
+    public function getDataById(int $id)
     {
-        return $this->repository;
+        return $this->repository->getDataById($id);
     }
 
     /**
-     * Set repository
+     * Get all data
      *
-     * @param RepositoryInterface $repository
+     * @return mixed
      */
-    protected function setRepository(RepositoryInterface $repository)
+    public function getData()
     {
-        $this->repository = $repository;
+        return $this->repository->getData();
     }
 
     /**
-     * Get db_connect
+     * Update data by id
      *
-     * @return string
+     * @param array $data update data
+     * @param int $id
+     * @return mixed
      */
-    public function getDBConnect()
+    public function updateData(array $data, int $id)
     {
-        return $this->db_connect;
+        return $this->repository->updateData($data, $id);
+    }
+
+    /**
+     * Insert a new data
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public function createData(array $data)
+    {
+        return $this->repository->createData($data);
+    }
+
+    /**
+     * Remove data by id
+     *
+     * @param int $id
+     * @return mixed
+     */
+    public function deleteData(int $id)
+    {
+        return $this->repository->deleteData($id);
     }
 }

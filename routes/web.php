@@ -19,10 +19,10 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 
-Route::get('/', function () {
-    return view('index', ['path' => 'foodie']);
-});
-
 Route::get('/ioc', function () {
     return view('index', ['path' => 'restaurant']);
+});
+
+Route::get('/', function () {
+    return view('index', ['path' => 'foodie']);
 });

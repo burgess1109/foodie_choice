@@ -2,26 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\Foodie\FoodieInterface;
-use App\Services\Menu\MenuInterface;
+use App\Services\BasicInterface;
+use App\Services\Menu\MenuService;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 
 class FoodieController extends BaseController
 {
-    /** @var object FoodieService */
+    /**
+     * @var array The columns which can be accepted for update and insert
+     */
+    private $acceptedParameters = ['name', 'city', 'detail', 'status', 'tel', 'opentime'];
+
+    /** @var BasicInterface */
     protected $foodieService;
 
-    /** @var object MenuService */
+    /** @var MenuService */
     protected $menuService;
 
     /**
      * FoodieController constructor.
      *
-     * @param FoodieInterface $foodieService
-     * @param MenuInterface $menuService
+     * @param BasicInterface $foodieService
+     * @param MenuService $menuService
      */
-    public function __construct(FoodieInterface $foodieService, MenuInterface $menuService)
+    public function __construct(BasicInterface $foodieService, MenuService $menuService)
     {
         $this->foodieService = $foodieService;
         $this->menuService = $menuService;
@@ -95,7 +100,12 @@ class FoodieController extends BaseController
     public function update(Request $request, int $id)
     {
         try {
-            return response()->json($this->foodieService->updateData($request, $id));
+            $input = $request->only($this->acceptedParameters); //array
+            if (empty($input['name'])) {
+                throw new \Exception('There is no name', 400);
+            }
+
+            return response()->json($this->foodieService->updateData($input, $id));
         } catch (\Exception $e) {
             if (empty($e->getCode())) {
                 return response()->json(['error' => $e->getMessage()])->setStatusCode(500);
@@ -124,7 +134,12 @@ class FoodieController extends BaseController
     public function store(Request $request)
     {
         try {
-            return response()->json($this->foodieService->createData($request));
+            $input = $request->only($this->acceptedParameters); //array
+            if (empty($input['name'])) {
+                throw new \Exception('There is no name', 400);
+            }
+
+            return response()->json($this->foodieService->createData($input));
         } catch (\Exception $e) {
             if (empty($e->getCode())) {
                 return response()->json(['error' => $e->getMessage()])->setStatusCode(500);

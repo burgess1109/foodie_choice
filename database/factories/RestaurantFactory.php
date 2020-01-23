@@ -12,14 +12,14 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(App\Models\Mysql\Restaurant\Restaurant::class, function (Faker\Generator $faker) {
+$factory->define(App_backup\Models\Mysql\Restaurant\Restaurant::class, function (Faker\Generator $faker) {
     return [
         'name' => "TEST0001",
         'tel' => '0' . rand(1, 9) . '-' . rand(20000000, 29999999),
     ];
 });
 
-$factory->define(App\Models\Mongo\Restaurant\Restaurant::class, function (Faker\Generator $faker) {
+$factory->define(App_backup\Models\Mongo\Restaurant\Restaurant::class, function (Faker\Generator $faker) {
     return [
         'name' => "TEST0001",
         'tel' => '0' . rand(1, 9) . '-' . rand(20000000, 29999999),

@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use App\Repositories\Restaurant\RestaurantRepository;
-use App\Models\Mongo\Restaurant\Restaurant as Mongo_Restaurant;
-use App\Models\Mysql\Restaurant\Restaurant as Mysql_Restaurant;
+//use App\Models\Mongo\Restaurant\Restaurant as Mongo_Restaurant;
+//use App\Models\Mysql\Restaurant\Restaurant as Mysql_Restaurant;
 
 class RestaurantTableSeeder extends Seeder
 {
@@ -28,14 +28,16 @@ class RestaurantTableSeeder extends Seeder
         $db_connect = Config::get('database.default');
         switch ($db_connect) {
             case 'mongodb':
-                $repository = new RestaurantRepository(new Mongo_Restaurant());
+                //$repository = new RestaurantRepository(new Mongo_Restaurant());
                 DB::collection('restaurant')->delete();
                 break;
             default:
-                $repository = new RestaurantRepository(new Mysql_Restaurant());
+                //$repository = new RestaurantRepository(new Mysql_Restaurant());
                 DB::table('restaurant')->delete();
                 break;
         }
+
+        $repository = new RestaurantRepository();
 
         for ($i = 0; $i < 5; $i++) {
             $address = array();
