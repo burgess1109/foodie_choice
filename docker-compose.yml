@@ -1,0 +1,44 @@
+version: '3'
+services:
+  nginx-php:
+    build:
+      context: .
+      dockerfile: ./docker/nginx-php/Dockerfile
+    container_name: nginx-php-server
+    ports:
+      - "8080:80"
+      - "443:443"
+    volumes:
+      - ./docker/nginx-php/conf.d/:/etc/nginx/conf.d
+      - ./docker/nginx-php/sites-enabled/:/etc/nginx/sites-enabled
+      - ./:/var/www/app/
+  mariaDB:
+    image: mariadb:10.4
+    container_name: mariadb-server
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+  mongoDB:
+    image: mongo:4.1
+    container_name: mongodb-server
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+  redis:
+    image: redis:5.0
+    container_name: redis-server
+    ports:
+    - "6379:6379"
+
+networks:
+  default:
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.200.1.0/24
