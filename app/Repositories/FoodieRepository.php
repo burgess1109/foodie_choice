@@ -2,10 +2,9 @@
 
 namespace App\Repositories;
 
-use DB;
 use App\Models\RestaurantInterface;
 
-class FoodieRepository extends Repository
+class FoodieRepository extends Repository implements RepositoryInterface
 {
     public function __construct(RestaurantInterface $restaurant)
     {
@@ -25,7 +24,23 @@ class FoodieRepository extends Repository
     {
         $updateData = $this->setAddress($updateData);
 
-        return $this->model->where($this->key_name, $id)->update($updateData);
+        return parent::updateData($updateData, $id);
+    }
+
+    /**
+     *  Insert a new data
+     *
+     * @param $createData
+     * @return mixed
+     */
+    public function createData($createData)
+    {
+        $createData = $this->setAddress($createData);
+
+        $id = $this->getNextSequence();
+        $createData[$this->key_name] = $id;
+
+        return parent::createData($createData);
     }
 
     /**
@@ -47,20 +62,5 @@ class FoodieRepository extends Repository
         unset($data['detail']);
 
         return $data;
-    }
-
-    /**
-     *  Insert a new data
-     *
-     * @param $createData
-     * @return mixed
-     */
-    public function createData($createData)
-    {
-        $createData = $this->setAddress($createData);
-
-        $id = $this->getNextSequence();
-        $createData[$this->key_name] = $id;
-        return $this->model->insert($createData);
     }
 }

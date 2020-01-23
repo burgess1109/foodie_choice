@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-class RestaurantRepository extends Repository
+class RestaurantRepository extends Repository implements RepositoryInterface
 {
     public function __construct()
     {
@@ -22,7 +22,23 @@ class RestaurantRepository extends Repository
     {
         $updateData = $this->setAddress($updateData);
 
-        return $this->model->where($this->key_name, $id)->update($updateData);
+        return parent::updateData($updateData, $id);
+    }
+
+    /**
+     *  Insert a new data
+     *
+     * @param $createData
+     * @return mixed
+     */
+    public function createData($createData)
+    {
+        $createData = $this->setAddress($createData);
+
+        $id = $this->getNextSequence();
+        $createData[$this->key_name] = $id;
+
+        return parent::createData($createData);
     }
 
     /**
@@ -44,20 +60,5 @@ class RestaurantRepository extends Repository
         unset($data['detail']);
 
         return $data;
-    }
-
-    /**
-     *  Insert a new data
-     *
-     * @param $createData
-     * @return mixed
-     */
-    public function createData($createData)
-    {
-        $createData = $this->setAddress($createData);
-
-        $id = $this->getNextSequence();
-        $createData[$this->key_name] = $id;
-        return $this->model->insert($createData);
     }
 }

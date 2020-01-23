@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-abstract class Repository implements RepositoryInterface
+abstract class Repository
 {
     /** @var object model */
     protected $model;
@@ -67,16 +67,6 @@ abstract class Repository implements RepositoryInterface
     public function deleteData($id)
     {
         return $this->model->where($this->key_name, $id)->delete();
-    }
-
-    /**
-     * Get Key Name
-     *
-     * @return string $key_name
-     */
-    public function getKeyName()
-    {
-        return $this->key_name;
     }
 
     /**
