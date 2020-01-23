@@ -2,8 +2,6 @@
 
 namespace App\Services;
 
-use Illuminate\Http\Request;
-
 interface BasicInterface
 {
     public function getDataById(int $id);

@@ -2,15 +2,24 @@
 
 namespace App\Models\Mysql\Restaurant;
 
-use DB;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\RestaurantInterface;
 
 class Restaurant extends Model implements RestaurantInterface
 {
     public $timestamps = false;
-    /** @var string DB_CONNECTION */
+
+    /**
+     * DB_CONNECTION
+     *
+     * @var string
+     */
     protected $connection = 'mysql';
-    /** @var string table name。 */
+
+    /**
+     * table name
+     *
+     * @var string
+     */
     protected $table = 'restaurant';
 }

@@ -7,7 +7,9 @@ use App\Services\BasicInterface;
 
 class Service implements BasicInterface
 {
-    /** @var RestaurantRepository repository */
+    /**
+     * @var RestaurantRepository repository
+     */
     private $repository;
 
     public function __construct()
