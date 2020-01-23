@@ -78,6 +78,7 @@
 <div id="app">
     <div class="col-md-12">
         <h2>@{{ message }}</h2>
+        <span v-if="path === 'restaurant'">Use Facade Way for service</span><span v-else>Use Dependency Injection for service</span>
     </div>
     <div class="col-md-12">
         <h3>餐廳列表 : </h3>
