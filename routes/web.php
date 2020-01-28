@@ -20,9 +20,9 @@ Route::get('/welcome', function () {
 });
 
 Route::get('/facade', function () {
-    return view('index', ['path' => 'restaurant']);
+    return view('index', ['path' => 'restaurant', 'db_connect' => Config::get('database.default')]);
 });
 
 Route::get('/', function () {
-    return view('index', ['path' => 'foodie']);
+    return view('index', ['path' => 'foodie', 'db_connect' => Config::get('database.default')]);
 });

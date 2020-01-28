@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class Restaurant extends Migration
 {
@@ -18,7 +18,7 @@ class Restaurant extends Migration
             case 'mongodb':
                 if (!Schema::hasCollection('restaurant')) {
                     Schema::create('restaurant', function ($collection) {
-                        $collection->unique('_id')->index();
+                        //$collection->unique('_id')->index();
                         $collection->index('name');
                     });
                 }
