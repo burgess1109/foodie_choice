@@ -19,7 +19,7 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 
-Route::get('/ioc', function () {
+Route::get('/facade', function () {
     return view('index', ['path' => 'restaurant']);
 });
 
