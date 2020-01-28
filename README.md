@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/burgess1109/foodie_choice.svg?branch=master)](https://travis-ci.org/burgess1109/foodie_choice)
 
-最近看了一些 Unit Test 及 Design Patterns 的文章，順便也想玩看看 MongoDB 和 VueJS，於是就寫了這支援跨資料庫(Mysql,MongoDB)，隨機選擇餐廳的小project ，順便記錄一下學習的心得，希望多多指教囉 ! 
+參考了一些 Unit Test 及 Design Patterns 的文章，順便也玩看看 MongoDB 和 VueJS，於是就寫了這支援跨資料庫(Mysql,MongoDB)，隨機選擇餐廳的小 project ，順便記錄一下心得。
 
 介面 
 
@@ -11,125 +11,51 @@
 ![圖示說明](https://github.com/burgess1109/foodie_choice/blob/master/demo2.png) 
 
 
-# 下載 & 安裝方式
+# 安裝方式
 
-注意事項
-
-* 請先確認有無安裝 php_mongodb extension
-
-    Linux 可使用 pecl 安裝
-
-    http://php.net/manual/en/mongodb.installation.pecl.php
-
-    Windows 可直接下載 .dll 檔
-
-    https://pecl.php.net/package/mongodb
-
-* PHP 版本需求
-    * Laravel >= 5.5
-    * PHP >= 7.1
-    * OpenSSL PHP Extension
-    * PDO PHP Extension
-    * Mbstring PHP Extension
-    * Tokenizer PHP Extension
-    * XML PHP Extension
-    
-* 其他需求    
-
-    * NodeJS 及 npm ( https://nodejs.org/en )
-    * Composer (https://getcomposer.org/download)
-
-下載程式
-
-```php
+* 下載
+```
 git clone https://github.com/burgess1109/foodie_choice.git
 ```
 
-初始化 composer & npm ：
+* 複製 .env.example
 
-```php
-composer install
-
-npm install
 ```
-
-設定 .env 檔 ：
-
-```php
 cp .env.example .env
+```
+
+* 設定 .env 的 DB 參數，DB 可選擇使用 mysql or mongo，選擇一種 DB 設定後，請把另一種註解掉
 
 ```
-* note : 若有 Mysql 與 MongoDB 切換需求，請將 .env 中 DB 相關環境參數註解掉，改由 database.php 統一設定。
+# mysql setting
+DB_CONNECTION=mysql
+DB_HOST=mariaDB
+DB_PORT=3306
+DB_DATABASE=project_foodie
+DB_USERNAME=root
+DB_PASSWORD=your_password
 
-    ```php
-    #DB_CONNECTION=mysql
-    #DB_HOST=localhost
-    #DB_PORT=3306
-    #DB_DATABASE=project_2018
-    #DB_USERNAME=root
-    #DB_PASSWORD=
-    ```
+# mongo setting
+#DB_CONNECTION=mongodb
+#DB_HOST=mongoDB
+#DB_PORT=27017
+#DB_DATABASE=project_foodie
+#DB_USERNAME=root
+#DB_PASSWORD=
+```
 
-編輯您的 DB 主機 IP、port、資料庫、帳密 (config/database.php)。
+* 建立 images & containers
+```
+docker-compose up -d
+```
 
- ```php
- #預設為mysql
- 'default' => env('DB_CONNECTION', 'mysql'),
- 
- 'mysql' => [
-             'driver' => 'mysql',
-             'host' => env('DB_HOST', '127.0.0.1'),
-             'port' => env('DB_PORT', '3306'),
-             'database' => env('DB_DATABASE', 'project_2018'),
-             'username' => env('DB_USERNAME', 'root'),
-             'password' => env('DB_PASSWORD', ''),
-         ],
-  
-#增加mongodb
-  'mongodb' => [
-              'driver'   => 'mongodb',
-              'host'     => env('DB_HOST', '127.0.0.1'),
-              'port'     => env('DB_PORT', 27017),
-              'database' => env('DB_DATABASE','project_2018'),
-              'username' => env('DB_USERNAME','root'),
-              'password' => env('DB_PASSWORD',''),
-              'options'  => [
-                  'database' => 'admin' // sets the authentication database required by mongo 3
-              ]
-          ],       
- 
- ```
-* note : 若修改config內容，請記得清掉 Laravel config cache，否則仍撈取舊的設定。
+* 初始化設定
+```
+make init
+```
 
-    ```php
-    php artisan config:clear
-    ```
+* 開啟網頁 http://localhost:8080 就可看到畫面囉！
 
-產生 APP KEY
- ```php
-php artisan key:generate
- ```
-
-創建 Database
- ```php
-mysql -e 'create database project_2018;'
- ```
-
-創建 Table Restaurant 及 初始資料
-
- ```php
-php artisan migrate:refresh
-php artisan db:seed --class=RestaurantTableSeeder
- ```
-
-執行 npm run dev 
-
- ```php
-npm run dev 
- ```
- 
-接著...開啟網頁就能看到畫面囉~ 
-(web server root 路徑需指到本專案 public 下)。
 
 # 後端架構
 
