@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\BasicInterface;
+use App\Services\Foodie\Service;
 use App\Services\Menu\MenuService;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
@@ -10,14 +11,19 @@ use Illuminate\Routing\Controller as BaseController;
 class FoodieController extends BaseController
 {
     /**
-     * @var array The columns which can be accepted for update and insert
+     * The columns which can be accepted for update and insert
+     * @var array
      */
     private $acceptedParameters = ['name', 'city', 'detail', 'status', 'tel', 'opentime'];
 
-    /** @var BasicInterface */
+    /**
+     * @var Service
+     */
     protected $foodieService;
 
-    /** @var MenuService */
+    /**
+     * @var MenuService
+     */
     protected $menuService;
 
     /**

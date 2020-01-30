@@ -10,7 +10,8 @@ use Illuminate\Routing\Controller as BaseController;
 class RestaurantController extends BaseController
 {
     /**
-     * @var array The columns which can be accepted for update and insert
+     * The columns which can be accepted for update and insert
+     * @var array
      */
     private $acceptedParameters = ['name', 'city', 'detail', 'status', 'tel', 'opentime'];
 
