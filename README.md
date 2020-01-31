@@ -205,7 +205,8 @@ $myClass->someMethod();
 
 Laravel Architecture 包含了 [Service Container](https://laravel.com/docs/6.x/container)(IoC Container)、[Service Providers](https://laravel.com/docs/6.x/providers)、[facade](https://laravel.com/docs/6.x/facades) 等等。
 
-上面提過 Dependency Injection Container，由 Container 去管理依賴，Container 逼需一一定義注入的依賴，Laravel Service Container 是更神奇了，binding 的類別會被 **reflect** 依賴對象並且實例化它，那些注入的類別會自行實例化。
+上面提過 Dependency Injection Container，由 Container 去管理依賴，Container 逼需一一定義注入的依賴，
+Laravel Service Container 是更神奇了，binding 類別的依賴對象會被 **reflect** 出來並且實例化它，也就是說那些注入的依賴類別會自行實例化。
 依剛剛的例子，定義類別只要寫成：
 
 ```php
@@ -216,10 +217,11 @@ $container = Container::getInstance();
 $myClass = $container->make(MyClass::class);
 ```
 
-其他相依的類別 Laravel Service Container 會自行幫我們實例化，有沒有很神奇啊。
+MyClass 其他相依的類別(AService, BService, ...)，Laravel Service Container 會自行幫我們實例化，有沒有很神奇啊！
+
 關於 Laravel Architecture Concepts 有興趣可以參考官網或是我寫的 [Laravel Architecture Concepts 心得](https://gist.github.com/burgess1109/6d05b88d28d537087cc66a463c2be32a)
 
-Laravel 很多的核心元件都可透過 facade 取得該類別，當然也可以透過 Service Container or help function 方式取得，舉例來說，有三種方式可以取得 config 的 database.default 設定 : 
+另外，Laravel 很多的核心元件都可透過 facades 取得該類別，當然也可以透過 Service Container or help function 方式取得，舉例來說，有三種方式可以取得 config 的 database.default 設定 : 
 ```php
 // By Service Container
 use Illuminate\Foundation\Application;
