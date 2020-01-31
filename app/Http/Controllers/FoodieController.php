@@ -60,7 +60,11 @@ class FoodieController extends BaseController
     public function menu()
     {
         try {
-            return response()->json($this->menuService->getData());
+            $response = [
+                'class' => get_class($this),
+                'data' => $this->menuService->getData()
+            ];
+            return response()->json($response);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()])->setStatusCode(500);
         }
