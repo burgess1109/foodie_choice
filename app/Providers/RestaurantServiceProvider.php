@@ -32,9 +32,7 @@ class RestaurantServiceProvider extends ServiceProvider
             return new Service;
         });
 
-        $this->app->bind(MenuService::class, function () {
-            return new MenuService;
-        });
+        $this->app->bind(MenuService::class);
 
         $this->app->bind('restaurant.repository', function () {
             return new RestaurantRepository;
@@ -42,17 +40,6 @@ class RestaurantServiceProvider extends ServiceProvider
 
 
         $this->app->singleton('restaurant.model', function () {
-
-            /* ioc container 取法
-            $config = $this->app->get('config');
-            $dbConnect = $config->get('database.default');
-            */
-
-            /* laravel facade 取法
-            $dbConnect = Config::get('database.default');
-             */
-
-            // laravel helper 取法
             $dbConnect = config('database.default');
             return ModelFactory::create($dbConnect);
         });
