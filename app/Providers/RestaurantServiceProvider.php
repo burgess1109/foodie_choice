@@ -29,13 +29,13 @@ class RestaurantServiceProvider extends ServiceProvider
     {
         // 設定相依
         $this->app->bind('restaurant', function () {
-            return new Service;
+            return new Service();
         });
 
         $this->app->bind(MenuService::class);
 
         $this->app->bind('restaurant.repository', function () {
-            return new RestaurantRepository;
+            return new RestaurantRepository();
         });
 
 

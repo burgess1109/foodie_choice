@@ -25,6 +25,6 @@ class FoodieServiceProvider extends ServiceProvider
     public function register()
     {
         // 設定相依
-        $this->app->bind(BasicInterface::class,Service::class);
+        $this->app->bind(BasicInterface::class, Service::class);
     }
 }

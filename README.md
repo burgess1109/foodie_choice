@@ -54,7 +54,48 @@ docker-compose up -d
 make init
 ```
 
-* 開啟網頁 http://localhost:8080 就可看到畫面囉！
+* 開啟網頁 http://localhost:8080 or http://localhost:8080/facade 就可看到畫面囉！
+
+# 檢查及測試
+
+## PSR-12
+
+使用 [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) 檢查程式碼是否符合 PSR-12 標準，請查看 [phpcs.xml](./phpcs.xml)
+
+
+執行 PSR-12 檢查
+ ```php
+docker-compose exec nginx-php ./vendor/bin/phpcs ./
+ ```
+
+## 單元測試
+
+在 tests/Unit 路徑下有寫了一些 Test Code 涵蓋一些驗收測試及單元測試，當然可以依需求自行擴充
+
+ ```php
+ #全部測試
+vendor/bin/phpunit
+
+#測試某一支
+vendor/bin/phpunit tests/Unit/FoodieTest.php
+ ```
+
+接觸了單元測試後，自然就會對 OOP 及 SOLID 的觀念有更深一層的體會，並開始痛恨 hard-coded 類別依賴 XD
+
+PHP 的 mockery 跟 faker 兩個 packages 很實用，讓撰寫測試替身時省了不少功夫， Laravel 的 composer.json 預設就有載入
+
+另外 Laravel 的 Facade 很強大，可在 Test 直接引用並自行進行 mock :
+
+ ```php
+ use App\Facades\Restaurant;
+ 
+ Restaurant::shouldReceive('getData')->andReturn('your data');
+ 
+ // Then you can do some testing ...
+  ```
+  
+有興趣可以查看 Illuminate\Support\Facades\Facade
+
 
 
 # Dependency Injection & Container
@@ -325,50 +366,7 @@ $this->model = app('restaurant.model');
 
 前端架構就是...沒架構，第一次碰前端 framework，前端也不是我想要 focus 的重點...所以就只是很 ugly 的寫完 app.js 跟嘗試前端 two-way data bindings 的奧妙，也沒甚麼值得說嘴的。
 
-前端的 ajax requests 是使用 Axios 套件
- 
-
-# 檢查及測試
-
-## PSR-2
-
-本專案有安裝 [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) ，檢查程式碼是否符合 PSR-2 標準，請查看 phpcs.xml
-
- ```php
- #全部檢查
-vendor/bin/phpcs
-
-#檢查某一支
-vendor/bin/phpcs tests/Unit/FoodieTest.php
- ```
-
-## 單元測試
-
-在 tests/Unit 路徑下有寫了一些 Test Code 涵蓋一些驗收測試及單元測試，當然可以依需求自行擴充
-
- ```php
- #全部測試
-vendor/bin/phpunit
-
-#測試某一支
-vendor/bin/phpunit tests/Unit/FoodieTest.php
- ```
-
-接觸了單元測試後，自然就會對 OOP 及 SOLID 的觀念有更深一層的體會，並開始痛恨 hard-coded 類別依賴 XD
-
-PHP 的 mockery 跟 faker 兩個 packages 很實用，讓撰寫測試替身時省了不少功夫， Laravel 的 composer.json 預設就有載入
-
-另外 Laravel 的 Facade 很強大，可在 Test 直接引用並自行進行 mock :
-
- ```php
- use App\Facades\Restaurant;
- 
- Restaurant::shouldReceive('getData')->andReturn('your data');
- 
- // Then you can do some testing ...
-  ```
-  
-有興趣可以查看 Illuminate\Support\Facades\Facade
+前端的 ajax requests 是使用 Axios 套件。
 
 
 # 結語
