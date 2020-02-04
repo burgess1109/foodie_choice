@@ -9,25 +9,22 @@ use PHPUnit\Framework\TestCase;
 
 class ModelFactoryTest extends TestCase
 {
-    private function getTestCases()
+    /**
+     * @dataProvider dbConnectProvider
+     * @param $db_connect
+     * @param $excepted
+     */
+    public function testCreateMysqlRestaurantModel($db_connect, $excepted)
     {
-        $testCases = [];
-        array_push(
-            $testCases,
-            ['db_connect' => 'default', 'excepted' => new MysqlRestaurant()],
-            ['db_connect' => 'mongodb', 'excepted' => new MongoRestaurant()]
-        );
-
-        return $testCases;
+        $model = ModelFactory::create($db_connect);
+        $this->assertEquals($excepted, $model);
     }
 
-    public function testCreateMysqlRestaurantModel()
+    public function dbConnectProvider()
     {
-        $testCases = $this->getTestCases();
-
-        foreach ($testCases as $testCase) {
-            $model = ModelFactory::create($testCase['db_connect']);
-            $this->assertEquals($testCase['excepted'], $model);
-        }
+        return [
+            'Model Should be MysqlRestaurant if db connect is default' => ['default', new MysqlRestaurant()],
+            'Model Should be MongoRestaurant if db connect is mongodb' => ['mongodb', new MongoRestaurant()],
+        ];
     }
 }

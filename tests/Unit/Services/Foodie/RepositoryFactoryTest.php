@@ -5,30 +5,30 @@ namespace Tests\Unit\Services\Foodie;
 use App\Models\Mongo\Restaurant\Restaurant as MongoRestaurant;
 use App\Models\Mysql\Restaurant\Restaurant as MysqlRestaurant;
 use App\Repositories\FoodieRepository;
+use App\Repositories\RepositoryInterface;
 use App\Services\Foodie\RepositoryFactory;
 use PHPUnit\Framework\TestCase;
 
 class RepositoryFactoryTest extends TestCase
 {
-    private function getTestCases()
+    /**
+     * @dataProvider dbConnectProvider
+     * @param string $db_connect
+     * @param RepositoryInterface $excepted
+     */
+    public function testCreateMysqlRestaurantRepository($db_connect, $excepted)
     {
-        $testCases = [];
-        array_push(
-            $testCases,
-            ['db_connect' => 'default', 'excepted' => new FoodieRepository(new MysqlRestaurant())],
-            ['db_connect' => 'mongodb', 'excepted' => new FoodieRepository(new MongoRestaurant())]
-        );
-
-        return $testCases;
+        $model = RepositoryFactory::create($db_connect);
+        $this->assertEquals($excepted, $model);
     }
 
-    public function testCreateMysqlRestaurantRepository()
+    public function dbConnectProvider()
     {
-        $testCases = $this->getTestCases();
-
-        foreach ($testCases as $testCase) {
-            $model = RepositoryFactory::create($testCase['db_connect']);
-            $this->assertEquals($testCase['excepted'], $model);
-        }
+        return [
+            'Model Should be MysqlRestaurant if db connect is default' =>
+                ['default', new FoodieRepository(new MysqlRestaurant())],
+            'Model Should be MongoRestaurant if db connect is mongodb' =>
+                ['mongodb', new FoodieRepository(new MongoRestaurant())],
+        ];
     }
 }
