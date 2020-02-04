@@ -58,9 +58,9 @@ make init
 
 # 檢查及測試
 
-## PSR-12
+## PSR-12 檢查
 
-使用 [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) 檢查程式碼是否符合 PSR-12 標準，請查看 [phpcs.xml](./phpcs.xml)
+使用 [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) 檢查程式碼是否符合 PSR-12 標準，設定檔請查看 [phpcs.xml](./phpcs.xml)
 
 
 執行 PSR-12 檢查
@@ -70,33 +70,13 @@ docker-compose exec nginx-php ./vendor/bin/phpcs ./
 
 ## 單元測試
 
-在 tests/Unit 路徑下有寫了一些 Test Code 涵蓋一些驗收測試及單元測試，當然可以依需求自行擴充
+執行 phpunit
 
  ```php
- #全部測試
-vendor/bin/phpunit
-
-#測試某一支
-vendor/bin/phpunit tests/Unit/FoodieTest.php
+docker-compose exec nginx-php ./vendor/bin/phpunit
  ```
 
-接觸了單元測試後，自然就會對 OOP 及 SOLID 的觀念有更深一層的體會，並開始痛恨 hard-coded 類別依賴 XD
-
-PHP 的 mockery 跟 faker 兩個 packages 很實用，讓撰寫測試替身時省了不少功夫， Laravel 的 composer.json 預設就有載入
-
-另外 Laravel 的 Facade 很強大，可在 Test 直接引用並自行進行 mock :
-
- ```php
- use App\Facades\Restaurant;
- 
- Restaurant::shouldReceive('getData')->andReturn('your data');
- 
- // Then you can do some testing ...
-  ```
-  
-有興趣可以查看 Illuminate\Support\Facades\Facade
-
-
+在 tests 路徑下有寫了一些 Test Code，PHP 的 [mockery](https://github.com/mockery/mockery) 跟 [faker](https://github.com/fzaninotto/Faker) 兩個 packages 很實用，讓撰寫測試替身時省了不少功夫， Laravel 預設都有載入。
 
 # Dependency Injection & Container
 

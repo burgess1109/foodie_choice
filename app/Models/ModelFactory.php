@@ -13,7 +13,7 @@ class ModelFactory
      * @param string $db_connect
      * @return MongoRestaurant|MysqlRestaurant
      */
-    public static function create($db_connect = "")
+    public static function create($db_connect = '')
     {
         switch ($db_connect) {
             case 'mongodb':
