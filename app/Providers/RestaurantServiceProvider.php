@@ -38,7 +38,6 @@ class RestaurantServiceProvider extends ServiceProvider
             return new RestaurantRepository();
         });
 
-
         $this->app->singleton('restaurant.model', function () {
             $dbConnect = config('database.default');
             return ModelFactory::create($dbConnect);

@@ -49,12 +49,17 @@ class RestaurantRepository extends Repository implements RepositoryInterface
      */
     private function setAddress($data)
     {
-        if (!empty($data['city']) || !empty($data['detail'])) {
-            $data['address'][0]['city'] = empty($data['city']) ? '' : $data['city'];
-            $data['address'][0]['detail'] = empty($data['detail']) ? '' : $data['detail'];
+        $data['address'] = [];
 
-            $data['address'] = json_encode($data['address']);
+        if (!empty($data['city'])) {
+            $data['address'][0]['city'] = $data['city'];
         }
+
+        if (!empty($data['detail'])) {
+            $data['address'][0]['detail'] = $data['detail'];
+        }
+
+        $data['address'] = json_encode($data['address']);
 
         unset($data['city']);
         unset($data['detail']);

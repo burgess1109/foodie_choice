@@ -9,7 +9,7 @@ class Service implements BasicInterface
 {
     /**
      * @var FoodieRepository repository
-    */
+     */
     private $repository;
 
     public function __construct()
