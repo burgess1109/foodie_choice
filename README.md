@@ -64,7 +64,7 @@ make init
 
 
 執行 PSR-12 檢查
- ```php
+ ```
 docker-compose exec nginx-php ./vendor/bin/phpcs ./
  ```
 
@@ -72,9 +72,14 @@ docker-compose exec nginx-php ./vendor/bin/phpcs ./
 
 執行 phpunit
 
- ```php
+ ```
 docker-compose exec nginx-php ./vendor/bin/phpunit
  ```
+
+查看覆蓋率
+```
+docker-compose exec nginx-php ./vendor/bin/phpunit --coverage-text
+```
 
 在 tests 路徑下有寫了一些 Test Code，PHP 的 [mockery](https://github.com/mockery/mockery) 跟 [faker](https://github.com/fzaninotto/Faker) 兩個 packages 很實用，讓撰寫測試替身時省了不少功夫， Laravel 預設都有載入。
 
@@ -147,8 +152,8 @@ $bService = new BService();
 $cRepository = new CRepository($aService, $bService);
 ...
 
-$myClass = new MyClass($aService, $bService, ...)
-$myClass->someMethod()
+$myClass = new MyClass($aService, $bService, ...);
+$myClass->someMethod();
 ...
 
 ```
