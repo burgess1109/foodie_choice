@@ -2,13 +2,22 @@
 
 namespace App\Repositories;
 
-abstract class Repository
+use App\Models\RestaurantInterface;
+
+abstract class Repository implements RepositoryInterface
 {
     /** @var object model */
     protected $model;
 
     /** @var string  The primary key name */
-    protected $key_name;
+    protected $keyName;
+
+    public function __construct(RestaurantInterface $restaurant)
+    {
+        $this->model = $restaurant;
+
+        $this->keyName = $this->model->getKeyName();
+    }
 
     /**
      * Get single date by id
@@ -18,9 +27,7 @@ abstract class Repository
      */
     public function getDataById($id)
     {
-        $row = $this->model->where($this->key_name, $id)->first();
-
-        return $row;
+        return $this->model->where($this->keyName, $id)->first();
     }
 
     /**
@@ -30,9 +37,7 @@ abstract class Repository
      */
     public function getData()
     {
-        $rows = $this->model->get();
-
-        return $rows;
+        return $this->model->get();
     }
 
     /**
@@ -44,7 +49,7 @@ abstract class Repository
      */
     public function updateData($updateData, $id)
     {
-        return $this->model->where($this->key_name, $id)->update($updateData);
+        return $this->model->where($this->keyName, $id)->update($updateData);
     }
 
     /**
@@ -66,7 +71,7 @@ abstract class Repository
      */
     public function deleteData($id)
     {
-        return $this->model->where($this->key_name, $id)->delete();
+        return $this->model->where($this->keyName, $id)->delete();
     }
 
     /**
@@ -88,7 +93,7 @@ abstract class Repository
      */
     public function getMaxSequence()
     {
-        $max_sequence = $this->model->max($this->key_name);
+        $max_sequence = $this->model->max($this->keyName);
         return (int)$max_sequence;
     }
 }

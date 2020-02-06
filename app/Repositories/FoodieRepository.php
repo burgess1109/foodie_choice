@@ -4,13 +4,13 @@ namespace App\Repositories;
 
 use App\Models\RestaurantInterface;
 
-class FoodieRepository extends Repository implements RepositoryInterface
+class FoodieRepository extends Repository
 {
+    use DataAssemble;
+
     public function __construct(RestaurantInterface $restaurant)
     {
-        $this->model = $restaurant;
-
-        $this->key_name = $this->model->getKeyName();
+        parent::__construct($restaurant);
     }
 
     /**
@@ -22,7 +22,9 @@ class FoodieRepository extends Repository implements RepositoryInterface
      */
     public function updateData($updateData, $id)
     {
-        $updateData = $this->setAddress($updateData);
+        $updateData['address'] = $this->setAddress($updateData['city'], $updateData['detail']);
+        unset($updateData['city']);
+        unset($updateData['detail']);
 
         return parent::updateData($updateData, $id);
     }
@@ -35,32 +37,13 @@ class FoodieRepository extends Repository implements RepositoryInterface
      */
     public function createData($createData)
     {
-        $createData = $this->setAddress($createData);
+        $createData['address'] = $this->setAddress($createData['city'], $createData['detail']);
+        unset($createData['city']);
+        unset($createData['detail']);
 
         $id = $this->getNextSequence();
-        $createData[$this->key_name] = $id;
+        $createData[$this->keyName] = $id;
 
         return parent::createData($createData);
-    }
-
-    /**
-     * Assemble address
-     *
-     * @param $data
-     * @return mixed
-     */
-    private function setAddress($data)
-    {
-        if (!empty($data['city']) || !empty($data['detail'])) {
-            $data['address'][0]['city'] = empty($data['city']) ? '' : $data['city'];
-            $data['address'][0]['detail'] = empty($data['detail']) ? '' : $data['detail'];
-
-            $data['address'] = json_encode($data['address']);
-        }
-
-        unset($data['city']);
-        unset($data['detail']);
-
-        return $data;
     }
 }
