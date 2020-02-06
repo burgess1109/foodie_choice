@@ -5,14 +5,15 @@ namespace Tests\Unit\Models;
 use App\Models\ModelFactory;
 use App\Models\Mongo\Restaurant\Restaurant as MongoRestaurant;
 use App\Models\Mysql\Restaurant\Restaurant as MysqlRestaurant;
+use App\Models\RestaurantInterface;
 use PHPUnit\Framework\TestCase;
 
 class ModelFactoryTest extends TestCase
 {
     /**
      * @dataProvider dbConnectProvider
-     * @param $db_connect
-     * @param $excepted
+     * @param string $db_connect
+     * @param RestaurantInterface $excepted
      */
     public function testCreateMysqlRestaurantModel($db_connect, $excepted)
     {
