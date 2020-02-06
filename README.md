@@ -49,7 +49,11 @@ DB_PASSWORD=your_password
 docker-compose up -d
 ```
 
-* 初始化設定
+完成後 docker 會建立 4 個 containers
+
+![](./demo3.png)
+
+* 執行初始化設定
 ```
 make init
 ```
