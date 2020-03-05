@@ -26,14 +26,10 @@ class RestaurantTableSeeder extends Seeder
         $repository = new RestaurantRepository();
 
         for ($i = 0; $i < 5; $i++) {
-            $address = array();
-            $address[0]["city"] = "Taipei";
-            $address[0]["detail"] = $this->detail[$i];
-            $address = json_encode($address);
-
             $insert_data = [
                 'name' => $this->name[$i],
-                'address' => $address,
+                'city' => 'Taipei',
+                'detail' => $this->detail[$i],
                 'tel' => $this->tel[$i],
                 'opentime' => $this->opentime[$i],
                 'status' => $this->status[$i]

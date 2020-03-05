@@ -18,8 +18,7 @@ class Restaurant extends Migration
             case 'mongodb':
                 if (!Schema::hasCollection('restaurant')) {
                     Schema::create('restaurant', function ($collection) {
-                        //$collection->unique('_id')->index();
-                        $collection->index('name');
+                        // do nothing...
                     });
                 }
                 break;
@@ -27,7 +26,7 @@ class Restaurant extends Migration
                 if (!Schema::hasTable('restaurant')) {
                     Schema::create('restaurant', function (Blueprint $table) {
                         $table->increments('id')->unique();
-                        $table->string('name')->index();
+                        $table->string('name');
                         $table->string('address')->nullable();
                         $table->string('tel', 12)->nullable();
                         $table->string('opentime')->nullable();
