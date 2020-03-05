@@ -6,16 +6,15 @@ php:
   - 7.2
 services:
   - mysql
-  - mongodb
 before_install:
   - pecl install mongodb
   - echo "extension = mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - mysql -e 'create database project_foodie;'
 install:
+  - cp .env.test .env
   - composer install
   - npm install
-  - cp .env.example .env
   - php artisan key:generate
-  - mysql -e 'create database project_foodie;'
   - php artisan migrate:fresh --seed
 script:
   - php vendor/bin/phpcs ./
