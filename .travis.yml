@@ -7,7 +7,7 @@ php:
 services:
   - mysql
 before_install:
-  - pecl install mongodb
+  - pecl install -f mongodb
   - echo "extension = mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - mysql -e 'create database project_foodie;'
 install:
